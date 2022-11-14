@@ -1,0 +1,39 @@
+﻿@page "/addviewpoint/{cid}"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>AddViewPoints</h3>
+<EditForm Model="viewPointModel" OnSubmit="SaveViewpoint">
+    <label>View point Name:</label>
+    <input type="text" @bind-value="viewPointModel.VP_Name" />
+    <label>View point detail_eng:</label>
+    <input type="text" @bind-value="viewPointModel.Vp_detail_Eng" />
+    <label>View point detail_urdu:</label>
+    <input type="text" @bind-value="viewPointModel.Vp_detail_Urdu" />
+    <button type="submit">Save City</button>
+</EditForm>
+
+<h1>@cid</h1>
+<p>@msg</p>
+
+
+
+@code {
+    [Parameter]
+    public string? cid{ get; set; }
+    private string? msg { get; set; }
+    private ViewPointModel viewPointModel { get; set; } = new ViewPointModel();
+    private void SaveViewpoint()
+    {
+        viewPointModel.City_id = int.Parse(cid);
+        int i = ViewPointDAL.SaveViewPoint(viewPointModel);
+        if (i == 1)
+        {
+            msg = "View Point saved Successfully";
+        }
+        else
+        {
+            msg = "Error while saving View point";
+        }
+    }
+
+}

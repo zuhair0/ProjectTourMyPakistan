@@ -1,0 +1,80 @@
+﻿@page "/addcity"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>Add City</h3>
+<EditForm Model="tourismModel" OnSubmit="SaveCity">
+    <label>City Name:</label>
+    <input type="text" @bind-value="tourismModel.City_name" />
+    <label>City Code:</label>
+    <input type="text" @bind-value="tourismModel.City_code" />
+    <button type="submit">Save City</button>
+</EditForm>
+<p>@msg</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>City Name</th>
+            <th>City Code</th>
+        </tr>
+    </thead>
+    @foreach (var item in tourism_model)
+    {
+        <tr>
+            <td>@item.City_name</td>
+            <td>@item.City_code</td>
+            <td>
+                <button @onclick="(()=>DeleteCity(item.City_code))">
+                    Delete
+                </button>
+            </td>
+            <td>
+                <a href="addviewpoint/@item.City_code">Add View Point</a>
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+
+@code {
+    private TourismModel tourismModel { get; set; } = new TourismModel();
+    private string? msg { get; set; }
+
+    private List<TourismModel> tourism_model = new List<TourismModel>();
+    private void SaveCity()
+    {
+        int i = TourismDAL.SaveCity(tourismModel);
+        if (i == 1)
+        {
+            msg = "City saved Successfully";
+        }
+        else
+        {
+            msg = "Error while saving city";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        GetCities();
+    }
+    private void GetCities()
+    {
+        tourism_model = TourismDAL.GetCities();
+    }
+    private void DeleteCity(int id)
+    {
+        int i = TourismDAL.DeleteCity(id);
+        if (i == 1)
+        {
+            msg = "Delete Successfully";
+            GetCities();
+        }
+        else
+        {
+            msg = "Error while deleteing";
+        }
+    }
+}
