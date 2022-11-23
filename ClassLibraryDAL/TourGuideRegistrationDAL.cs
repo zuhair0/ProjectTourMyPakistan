@@ -30,7 +30,7 @@ namespace ClassLibraryDAL
             cmd.Parameters.AddWithValue("@TG_latitude",tgrm.TG_latitude);
             cmd.Parameters.AddWithValue("@TG_registration_date",tgrm.TG_registration_date);
             cmd.Parameters.AddWithValue("@TG_registration_time",tgrm.TG_registration_time);
-            cmd.Parameters.AddWithValue("@TG_Registration_status",tgrm.TG_Registration_status);
+           // cmd.Parameters.AddWithValue("@TG_Registration_status",tgrm.TG_Registration_status);
             int i = cmd.ExecuteNonQuery();
             con.Close();
             return i;

@@ -25,3 +25,25 @@ namespace ClassLibraryModel
         public bool TG_Registration_status {get;set;}
     }
 }
+//USE[Tourism]
+//GO
+///****** Object:  StoredProcedure [dbo].[Sp_SaveTourGuideReg]    Script Date: 11/23/2022 4:17:58 AM ******/
+//SET ANSI_NULLS ON
+//GO
+//SET QUOTED_IDENTIFIER ON
+//GO
+//ALTER proc [dbo].[Sp_SaveTourGuideReg]
+//@TG_name varchar(20), @TG_cnic int, @TG_DOB varchar(20), @TG_Gender varchar(20), @TG_Mobile int, @TG_Whatsapp int, 
+//@TG_Landline int, @TG_city varchar(20), @TG_Sector varchar(20), @TG_Longitude float,
+//@TG_latitude float, @TG_registration_date date,
+//@TG_registration_time time
+//as begin
+//insert into Tour_Guide_Registration( [TG_name], [TG_cnic], [TG_DOB], [TG_Gender], 
+//[TG_Mobile], [TG_Whatsapp], [TG_Landline], [TG_city], [TG_Sector], [TG_Longitude], [TG_latitude],
+//[TG_registration_date], [TG_registration_time], [TG_Registration_status])
+
+//values(@TG_name, @TG_cnic, @TG_DOB, @TG_Gender, @TG_Mobile, @TG_Whatsapp,
+//@TG_Landline, @TG_city, @TG_Sector, @TG_Longitude, @TG_latitude,
+//@TG_registration_date,
+//@TG_registration_time, 'true')
+//end
