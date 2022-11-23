@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryModel
 {
-    public class ViewPointModel
+    public class ViewPointImageModel
     {
-        public int Vp_id { get; set; }
-        public int City_id { get; set; }
-        public string? VP_Name { get; set; }
+        public int VP_image_id { get; set; }
+        public int VP_id { get; set; }
+        public string? VP_image_url { get; set; }
         public string? Vp_detail_Eng { get; set; }
-        public string? Vp_detail_Urdu { get; set; }
     }
 }

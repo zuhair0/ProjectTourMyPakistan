@@ -1,0 +1,52 @@
+﻿@page "/tourguidereg"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>TourGuideRegistration</h3>
+<EditForm Model="tourGuideRegistration" OnSubmit="SaveTourGuideReg">
+    <label>Tour Guide Name</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_name" />
+    <br />
+    <label>Tour Guide cnic</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_cnic" /><br />
+    <label>Tour Guide DOB</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_DOB" /><br />
+    <label>Tour Guide Gender</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Gender" /><br />
+    <label>Tour Guide Mobile</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Mobile" /><br />
+    <label>Tour Guide Whatsapp</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Whatsapp" /><br />
+    <label>Tour Guide Landline</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Landline" /><br />
+    <label>Tour Guide City</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_city" /><br />
+    <label>Tour Guide Sector</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Sector" /><br />
+    <label>Tour Guide Longitude</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Longitude" /><br />
+    <label>Tour Guide Latitude</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_latitude" /><br />
+    <label>Tour Guide Reg Date</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_registration_date" /><br />
+    <label>Tour Guide Reg Time</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_registration_time" /><br />
+    <label>Tour Guide Reg Status</label>
+    <input type="text" @bind-value="tourGuideRegistration.TG_Registration_status" /><br />
+    <button type="submit">save</button>
+</EditForm>
+<p>@msg</p>
+@code {
+    private string? msg { get; set; }
+    private TourGuideRegistrationModel tourGuideRegistration = new TourGuideRegistrationModel();
+    private void SaveTourGuideReg(){
+        int i = TourGuideRegistrationDAL.SaveTourGuideRegistration(tourGuideRegistration);
+        if (i == 1)
+        {
+            msg = "Service Sub Category Saved successfully";
+        }
+        else
+        {
+            msg = "Error while saving Service Sub Catergoryt";
+        }
+    }
+}

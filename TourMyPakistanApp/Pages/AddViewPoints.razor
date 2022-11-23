@@ -4,16 +4,41 @@
 <h3>AddViewPoints</h3>
 <EditForm Model="viewPointModel" OnSubmit="SaveViewpoint">
     <label>View point Name:</label>
-    <input type="text" @bind-value="viewPointModel.VP_Name" />
+    <input type="text" @bind-value="viewPointModel.VP_Name" required/>
     <label>View point detail_eng:</label>
-    <input type="text" @bind-value="viewPointModel.Vp_detail_Eng" />
+    <input type="text" @bind-value="viewPointModel.Vp_detail_Eng"required />
     <label>View point detail_urdu:</label>
-    <input type="text" @bind-value="viewPointModel.Vp_detail_Urdu" />
-    <button type="submit">Save City</button>
+    <input type="text" @bind-value="viewPointModel.Vp_detail_Urdu" required />
+    <button type="submit">Save View Point</button>
 </EditForm>
-
-<h1>@cid</h1>
 <p>@msg</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>View point Name</th>
+            <th>View point Code</th>
+            <th>View point Detail_Eng</th>
+            <th>View point Detail_Urdu</th>
+        </tr>
+    </thead>
+    @foreach (var item in viewPointsList)
+    {
+        <tr>
+            <td>@item.VP_Name</td>
+            <td>@item.City_id</td>
+            <td>@item.Vp_detail_Eng</td>
+            <td>@item.Vp_detail_Urdu</td>
+            <td>
+                <button @onclick="(()=>DeleteViewPoint(item.Vp_id))">
+                    Delete
+                </button>
+            </td>
+            <td>
+                <a href="addviewpointimage/@item.Vp_id">Add View Point Image</a>
+            </td>
+        </tr>
+    }
+</table>
 
 
 
@@ -22,6 +47,8 @@
     public string? cid{ get; set; }
     private string? msg { get; set; }
     private ViewPointModel viewPointModel { get; set; } = new ViewPointModel();
+
+    private List<ViewPointModel> viewPointsList = new List<ViewPointModel>();
     private void SaveViewpoint()
     {
         viewPointModel.City_id = int.Parse(cid);
@@ -29,11 +56,32 @@
         if (i == 1)
         {
             msg = "View Point saved Successfully";
+            GetViewPoints();
         }
         else
         {
             msg = "Error while saving View point";
         }
     }
-
+    protected override void OnInitialized()
+    {
+        GetViewPoints();
+    }
+    private void GetViewPoints()
+    {
+        viewPointsList = ViewPointDAL.GetViewpoints();
+    }
+    private void DeleteViewPoint(int id)
+    {
+        int i = ViewPointDAL.DeleteViewPoint(id);
+        if (i == 1)
+        {
+            msg = "Delete Successfully";
+            GetViewPoints();
+        }
+        else
+        {
+            msg = "Error while deleteing";
+        }
+    }
 }
