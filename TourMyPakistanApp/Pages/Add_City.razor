@@ -6,16 +6,18 @@
     <label>City Name:</label>
     <input type="text" @bind-value="tourismModel.City_name" />
     <label>City Code:</label>
-    <input type="text" @bind-value="tourismModel.City_code" />
-    <button type="submit">Save City</button>
+    <input type="number" @bind-value="tourismModel.City_code" />
+    <button type="submit" class="btn btn-primary">Save City</button>
 </EditForm>
 <p>@msg</p>
 
 <table class="table table-bordered">
-    <thead>
+    <thead class="row">
         <tr>
-            <th>City Name</th>
-            <th>City Code</th>
+            <th class="col-5">City Name</th>
+            <th class="col-2">City Code</th>
+            <th class="col-2">Action</th>
+            <th class="col-3">More...</th>
         </tr>
     </thead>
     @foreach (var item in tourism_model)
