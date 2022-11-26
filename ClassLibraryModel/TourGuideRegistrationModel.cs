@@ -47,3 +47,15 @@ namespace ClassLibraryModel
 //@TG_registration_date,
 //@TG_registration_time, 'true')
 //end
+
+
+//create proc Sp_GetTourGuides
+//as begin
+//select * from Tour_Guide_Registration
+//end
+
+//create proc Sp_DeleteTourGuide
+//@TG_id int
+//as begin
+//delete from Tour_Guide_Registration where TG_id=@TG_id
+//end

@@ -1,12 +1,88 @@
-﻿@page "/tourcompanyreg"
+﻿@page "/tourcompanyreg/{TG_id}"
 @using ClassLibraryModel
 @using ClassLibraryDAL
 <h3>TourCompanyRegistration</h3>
-
+<EditForm Model="tourCompanyReg" OnSubmit="SaveTourCompanyReg">
+    <label>Tour Company Name</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_name" />
+    <label>Tour Company Sector</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_sector" />
+    <label>City id</label>
+    <input type="text" @bind-value="tourCompanyReg.City_id" />
+    <label>Tour Company Longitude Latitude</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_longitude_latitude" />
+    <label>Tour Company website</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_website" />
+    <label>Tour Company facebook</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Facebook" />
+    <label>Tour Company instagram</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Instagram" />
+    <label>Tour Company contact1</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_contact1" />
+    <label>Tour Company contact2</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_contact2" />
+    <label>Tour Company Whatsapp</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Whatsapp" />
+    <label>Tour Company Landline</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Landline" />
+    <label>Tour Company Reg date/time</label>
+    <input type="text" @bind-value="tourCompanyReg.Tour_Company_Registration_date_time" />
+    <button type="submit">Save</button>
+</EditForm>
+<p>@msg</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Sector</th>
+        </tr>
+    </thead>
+    @foreach (var item in tourCompanyRegsList)
+    {
+        <tr>
+            <td>@item.Company_name</td>
+            <td>@item.Company_contact1</td>
+            <td>@item.Company_sector</td>
+            <td>
+                <button @onclick="(()=>DeleteTourCompany(item.Company_ID))">Delete</button>
+            </td>
+        </tr>
+    }
+</table>
 @code {
+    [Parameter]
+    public string? TG_id { get; set; }
     private string? msg { get; set; }
     private TourCompanyRegModel tourCompanyReg=new TourCompanyRegModel();
+    private List<TourCompanyRegModel> tourCompanyRegsList = new List<TourCompanyRegModel>();
     private void SaveTourCompanyReg(){
-
+        int i = TourCompanyRegDAL.SaveTourCompanyReg(tourCompanyReg);
+        if(i==1){
+            msg = "Saved succesfully";
+            GetTourCompanyReg();
+        }
+        else{
+            msg = "Error while saving";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        GetTourCompanyReg();
+    }
+    private void GetTourCompanyReg(){
+        tourCompanyRegsList = TourCompanyRegDAL.GetTourCompanyRegistrations();
+    }
+    private void DeleteTourCompany(int id){
+        int i = TourCompanyRegDAL.DeleteTourGuide(id);
+        if (i == 1)
+        {
+            msg = "deleted succesfully";
+            GetTourCompanyReg();
+        }
+        else
+        {
+            msg = "Error while deleting";
+        }
     }
 }
