@@ -8,7 +8,8 @@ namespace ClassLibraryModel
 {
     public class CompanyMemberRegModel
     {
-        public int Tour_Member_ID { get; set; }
+        public int Company_Member_ID { get; set; }
+        public int Tour_Member_ID { get; set; }  //this is Tour_Comapny_ID
         public string? Company_Member_Firstname { get; set; }
         public string? Company_Member_Lastname { get; set; }
         public int Company_Member_DOB { get; set; }

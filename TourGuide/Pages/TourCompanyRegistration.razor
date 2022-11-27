@@ -47,6 +47,9 @@
             <td>
                 <button @onclick="(()=>DeleteTourCompany(item.Company_ID))">Delete</button>
             </td>
+            <td>
+                <a href="companymemberreg/@item.Company_ID">Add company member</a>
+            </td>
         </tr>
     }
 </table>

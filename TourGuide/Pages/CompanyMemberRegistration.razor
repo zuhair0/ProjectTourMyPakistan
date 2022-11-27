@@ -1,0 +1,94 @@
+﻿@page "/companymemberreg/{Tour_Member_ID}"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>CompanyMemberRegistration</h3>
+<EditForm Model="companyMemberReg" OnSubmit="SaveCompanyMember">
+    <label>Member Id</label>
+    <input type="text" @bind-value="companyMemberReg.Tour_Member_ID" /><br />
+    <label>Member Firstname</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_Firstname" /><br />
+    <label>Member Lastname</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_Lastname" /><br />
+    <label>Member DOB</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_DOB" /><br />
+    <label>Member Gender</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_Gender" /><br />
+    <label>Member Role</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_role" /><br />
+    <label>Member CNIC</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_CNIC" /><br />
+    <label>Member Whatsapp</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_Whatsapp" /><br />
+    <label>Member Mobile</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_Mobile" /><br />
+    <label>City ID</label>
+    <input type="text" @bind-value="companyMemberReg.City_ID" /><br />
+    <label>Member Sector</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_Sector" /><br />
+    <label>Member Reg datetime</label>
+    <input type="text" @bind-value="companyMemberReg.Company_Member_registration_datetime" /><br />
+
+    <button type="submit">Save</button>
+</EditForm>
+<p>@msg</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Role</th>
+            <th>Gender</th>
+        </tr>
+    </thead>
+    @foreach (var item in companyMembersList)
+    {
+        <tr>
+            <td>@item.Company_Member_Firstname</td>
+            <td>@item.Company_Member_Mobile</td>
+            <td>@item.Company_Member_role</td>
+            <td>@item.Company_Member_Gender</td>
+            <td>
+                <button @onclick="(()=>DeleteMember(item.Company_Member_ID))">
+                    delete
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+@code {
+    [Parameter]
+    public string? Tour_Member_ID { get; set; }
+    private string? msg { get; set; }
+    private CompanyMemberRegModel companyMemberReg = new CompanyMemberRegModel();
+    private List<CompanyMemberRegModel> companyMembersList = new List<CompanyMemberRegModel>();
+    private void SaveCompanyMember(){
+        int i = CompanyMemberRegDAL.SaveCompanyMember(companyMemberReg);
+        if(i==1){
+            msg = "Member Saved Successfully";
+            GetCompanyMembers();
+        }
+        else{
+            msg = "Error while saving member";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        GetCompanyMembers();
+    }
+    private void GetCompanyMembers(){
+        companyMembersList = CompanyMemberRegDAL.GetCompanyMembers();
+    }
+    private void DeleteMember(int id){
+        int i = CompanyMemberRegDAL.DeleteCompanyMember(id);
+        if (i == 1)
+        {
+            msg = "Member Deleted Successfully";
+            GetCompanyMembers();
+        }
+        else
+        {
+            msg = "Error while Deleting member";
+        }
+    }
+}
