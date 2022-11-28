@@ -3,30 +3,36 @@
 @using ClassLibraryDAL
 <h3>TourCompanyRegistration</h3>
 <EditForm Model="tourCompanyReg" OnSubmit="SaveTourCompanyReg">
-    <label>Tour Company Name</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_name" />
-    <label>Tour Company Sector</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_sector" />
-    <label>City id</label>
-    <input type="text" @bind-value="tourCompanyReg.City_id" />
-    <label>Tour Company Longitude Latitude</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_longitude_latitude" />
-    <label>Tour Company website</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_website" />
-    <label>Tour Company facebook</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_Facebook" />
-    <label>Tour Company instagram</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_Instagram" />
-    <label>Tour Company contact1</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_contact1" />
-    <label>Tour Company contact2</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_contact2" />
-    <label>Tour Company Whatsapp</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_Whatsapp" />
-    <label>Tour Company Landline</label>
-    <input type="text" @bind-value="tourCompanyReg.Company_Landline" />
-    <label>Tour Company Reg date/time</label>
-    <input type="text" @bind-value="tourCompanyReg.Tour_Company_Registration_date_time" />
+    <label>Name</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_name" /><br />
+    <label>Sector</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_sector" /><br />
+    <label>City</label>
+    <select @onchange="selectedcity">
+
+        @foreach (var item in cityList)
+        {
+         <option value="@item.City_code">@item.City_name</option>
+        }
+    </select><br />
+    <label>Longitude Latitude</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_longitude_latitude" /><br />
+    <label>website</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_website" /><br />
+    <label>facebook</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Facebook" /><br />
+    <label>instagram</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Instagram" /><br />
+    <label>contact1</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_contact1" /><br />
+    <label>contact2</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_contact2" /><br />
+    <label>Whatsapp</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Whatsapp" /><br />
+    <label>Landline</label>
+    <input type="text" @bind-value="tourCompanyReg.Company_Landline" /><br />
+    <label>Reg date/time</label>
+    <input type="text" @bind-value="tourCompanyReg.Tour_Company_Registration_date_time" /><br />
     <button type="submit">Save</button>
 </EditForm>
 <p>@msg</p>
@@ -57,9 +63,12 @@
     [Parameter]
     public string? TG_id { get; set; }
     private string? msg { get; set; }
+    private int citycode { get; set; }
     private TourCompanyRegModel tourCompanyReg=new TourCompanyRegModel();
     private List<TourCompanyRegModel> tourCompanyRegsList = new List<TourCompanyRegModel>();
+    private List<TourismModel> cityList = new List<TourismModel>();
     private void SaveTourCompanyReg(){
+        tourCompanyReg.City_id = citycode;
         int i = TourCompanyRegDAL.SaveTourCompanyReg(tourCompanyReg);
         if(i==1){
             msg = "Saved succesfully";
@@ -72,6 +81,7 @@
     protected override void OnInitialized()
     {
         GetTourCompanyReg();
+        Loadcity();
     }
     private void GetTourCompanyReg(){
         tourCompanyRegsList = TourCompanyRegDAL.GetTourCompanyRegistrations();
@@ -87,5 +97,11 @@
         {
             msg = "Error while deleting";
         }
+    }
+    private void Loadcity(){
+        cityList = TourismDAL.GetCities();
+    }
+    private void selectedcity(ChangeEventArgs e ){
+        citycode = int.Parse(e.Value.ToString());
     }
 }
