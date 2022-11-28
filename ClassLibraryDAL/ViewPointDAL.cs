@@ -9,6 +9,7 @@ namespace ClassLibraryDAL
 {
     public class ViewPointDAL
     {
+        //kjk
         public static int SaveViewPoint(ViewPointModel vpm)
         {
             SqlConnection con = DBHelper.GetConnection();
