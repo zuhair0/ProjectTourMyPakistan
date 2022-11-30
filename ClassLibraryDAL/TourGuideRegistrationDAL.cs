@@ -25,7 +25,7 @@ namespace ClassLibraryDAL
             cmd.Parameters.AddWithValue("@TG_Mobile",tgrm.TG_Mobile);
             cmd.Parameters.AddWithValue("@TG_Whatsapp",tgrm.TG_Whatsapp);
             cmd.Parameters.AddWithValue("@TG_Landline",tgrm.TG_Landline);
-            cmd.Parameters.AddWithValue("@TG_city",tgrm.TG_city);
+            cmd.Parameters.AddWithValue("@TG_city", tgrm.TG_city);
             cmd.Parameters.AddWithValue("@TG_Sector",tgrm.TG_Sector);
             cmd.Parameters.AddWithValue("@TG_Longitude",tgrm.TG_Longitude);
             cmd.Parameters.AddWithValue("@TG_latitude",tgrm.TG_latitude);

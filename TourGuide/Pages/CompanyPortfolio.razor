@@ -1,0 +1,73 @@
+﻿@page "/companyportfolio/{Company_Id}"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>CompanyPortfolio</h3>
+<EditForm Model="companyPortfolio" OnSubmit="SaveCompanyPortfolio">
+    @*<label>comp id</label>
+    <input type="text" @bind-value="companyPortfolio.Company_Id"/>*@
+    <label> Company Details</label>
+    <input type="text" @bind-value="companyPortfolio.Portfolio_details" />
+    <button type="submit"> Save</button>
+</EditForm>
+<p>@msg</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Company Portfolio</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in companyPortfolioList)
+    {
+        <tr>
+            <td>@item.Portfolio_details</td>
+            <td>
+                <button @onclick="(()=>DeleteCompanyPortfolio(item.Portfolio_id))">
+                    delete
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+@code {
+    [Parameter]
+    public string? Company_Id {get;set;}
+    private string? msg { get; set; }
+    private CompanyPortfolioModel companyPortfolio = new CompanyPortfolioModel();
+    private List<CompanyPortfolioModel> companyPortfolioList = new List<CompanyPortfolioModel>();
+    private void SaveCompanyPortfolio()
+    {
+        companyPortfolio.Company_Id = int.Parse(Company_Id);
+        int i = CompanyPortfolioDAL.SaveCompanyPortfolio(companyPortfolio);
+        if (i == 1)
+        {
+            msg = "Portfolio Saved successfully";
+            GetCompanyPortfolio();
+        }
+        else
+        {
+            msg = "Error while saving Portfolio";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        GetCompanyPortfolio();
+    }
+    private void GetCompanyPortfolio(){
+            companyPortfolioList = CompanyPortfolioDAL.GetCompanyPortfolios();
+    }
+    private void DeleteCompanyPortfolio(int id){
+        int i=CompanyPortfolioDAL.DeleteCompanyPortfolio(id) ;
+        if (i == 1)
+        {
+            msg = "Member Deleted Successfully";
+            GetCompanyPortfolio();
+        }
+        else
+        {
+            msg = "Error while Deleting member";
+        }
+    }
+
+
+}

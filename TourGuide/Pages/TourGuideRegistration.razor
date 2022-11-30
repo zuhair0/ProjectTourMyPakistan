@@ -21,9 +21,9 @@
     <select @onchange="SelectedCity">
         @foreach (var item in CityList)
         {
-            <option value="@item.City_code">@item.City_name</option>
+            <option value="@item.City_name">@item.City_name</option>
         }
-    </select><br />
+    </select>@city<br />
     <label>Sector</label>
     <input type="text" @bind-value="tourGuideRegistration.TG_Sector" /><br />
     <label>Longitude</label>
@@ -69,8 +69,9 @@
     private TourGuideRegistrationModel tourGuideRegistration = new TourGuideRegistrationModel();
     private List<TourGuideRegistrationModel> tourGuideRegistrationsList = new List<TourGuideRegistrationModel>();
     private List<TourismModel> CityList = new List<TourismModel>();
-    private int citycode { get; set; }
+    private string? city { get; set; }
     private void SaveTourGuideReg(){
+        tourGuideRegistration.TG_city = city;
         int i = TourGuideRegistrationDAL.SaveTourGuideRegistration(tourGuideRegistration);
         if (i == 1)
         {
@@ -106,6 +107,6 @@
         CityList = TourismDAL.GetCities();
     }
     private void SelectedCity(ChangeEventArgs e){
-        citycode = int.Parse(e.Value.ToString());
+        city = e.Value.ToString();
     }
 }
