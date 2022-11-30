@@ -56,6 +56,9 @@
             <td>
                 <a href="companymemberreg/@item.Company_ID">Add company member</a>
             </td>
+            <td>
+                <a href="tourcompanyservice">Service</a>
+            </td>
         </tr>
     }
 </table>
@@ -69,6 +72,7 @@
     private List<TourismModel> cityList = new List<TourismModel>();
     private void SaveTourCompanyReg(){
         tourCompanyReg.City_id = citycode;
+        tourCompanyReg.Tour_guide_id = int.Parse(TG_id);
         int i = TourCompanyRegDAL.SaveTourCompanyReg(tourCompanyReg);
         if(i==1){
             msg = "Saved succesfully";

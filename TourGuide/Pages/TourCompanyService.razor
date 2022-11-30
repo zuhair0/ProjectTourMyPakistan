@@ -1,0 +1,122 @@
+﻿@page "/tourcompanyservice"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>TourCompanyService</h3>
+<EditForm Model="tourCompanyService" OnSubmit="SaveTourCompanyServices">
+    <label>Category</label>
+    <select @onchange="SelectedCategoryID">
+        @foreach (var item in serviceCategoriesList)
+        {
+            <option value="@item.Cat_ID">@item.Cat_Title</option>
+        }
+    </select>@servicecategory<br />
+    <label>Sub Category</label>
+    <select @onchange="SelectedSubCategoryID">
+        @foreach (var item in serviceSubCategoriesList)
+        {
+            <option value="@item.Sub_cat_ID">@item.Sub_Cat_Title</option>
+        }
+    </select>@SubCatID<br />
+    <label>Service Details</label>
+    <select @onchange="SelectedServiceDetailID">
+        @foreach (var item in serviceDetailsList)
+        {
+            <option value="@item.SD_ID">@item.SD_Title</option>
+        }
+    </select>@ServiceDetailsID<br />
+
+    <button type="submit">Save</button>
+</EditForm>
+<p>@msg</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>Category ID</td>
+            <td>Sub Category ID</td>
+            <td>Service Detail ID</td>
+        </tr>
+    </thead>
+    @foreach (var item in tourCompanyServicesList)
+    {
+        <tr>
+            <td>@item.Category_ID</td>
+            <td>@item.Sub_Category_ID</td>
+            <td>@item.SD_ID</td>
+            <td>
+                <button @onclick="(()=>DeleteTourCompanyservice(item.Company_Service_ID))">delete</button>
+            </td>
+        </tr>
+    }
+</table>
+@code {
+    private string? msg {get;set;}
+    private TourCompanyServiceModel tourCompanyService = new TourCompanyServiceModel();
+    private List<TourCompanyServiceModel> tourCompanyServicesList = new List<TourCompanyServiceModel>();
+
+    private List<ServiceCategoryModel> serviceCategoriesList = new List<ServiceCategoryModel>();
+    private int servicecategory { get; set; }
+
+    private List<ServiceSubCategoryModel> serviceSubCategoriesList = new List<ServiceSubCategoryModel>();
+    private int SubCatID { get; set; }
+
+    private List<ServiceDetailsModel> serviceDetailsList = new List<ServiceDetailsModel>();
+    private int ServiceDetailsID { get; set; }
+
+    private void SaveTourCompanyServices(){
+        tourCompanyService.Category_ID = servicecategory;
+        tourCompanyService.Sub_Category_ID = SubCatID;
+        tourCompanyService.SD_ID = ServiceDetailsID;
+        int i = TourCompanyServiceDAL.SaveTourCompanyService(tourCompanyService);
+        if(i==1){
+            msg = "Saved Succefulylly";
+            GetTourCompanyServices();
+        }
+        else{
+            msg = "Error while saving";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        LoadCategories();
+        LoadSubCategories();
+        LoadServiceDetails();
+        GetTourCompanyServices();
+    }
+    private void GetTourCompanyServices(){
+        tourCompanyServicesList = TourCompanyServiceDAL.GetTourCompanyServices();
+    }
+
+    private void DeleteTourCompanyservice(int id){
+        int i = TourCompanyServiceDAL.DeleteTourCompanyService(id);
+        if (i == 1)
+        {
+            msg = "Deleted Succefulylly";
+            GetTourCompanyServices();
+        }
+        else
+        {
+            msg = "Error while deleting";
+        }
+    }
+
+    private void LoadCategories(){
+        serviceCategoriesList = ServiceCateoryDAL.GetServiceCategories();
+    }
+    private void SelectedCategoryID(ChangeEventArgs e){
+        servicecategory = int.Parse(e.Value.ToString());
+    }
+
+    private void LoadSubCategories(){
+        serviceSubCategoriesList = ServiceSubCategoryDAL.GetServiceSubCategories();
+    }
+    private void SelectedSubCategoryID(ChangeEventArgs e){
+        SubCatID = int.Parse(e.Value.ToString());
+    }
+
+    private void LoadServiceDetails(){
+        serviceDetailsList = ServiceDetailsDAL.GetServiceDetails();
+    }
+    private void SelectedServiceDetailID(ChangeEventArgs e){
+        ServiceDetailsID = int.Parse(e.Value.ToString());
+    }
+}

@@ -22,7 +22,13 @@
     <label>Member Mobile</label>
     <input type="text" @bind-value="companyMemberReg.Company_Member_Mobile" /><br />
     <label>City ID</label>
-    <input type="text" @bind-value="companyMemberReg.City_ID" /><br />
+    <select @onchange="selectedcitycode">
+        @foreach (var item in Cities)
+        {
+            <option value="@item.City_code">@item.City_name</option>
+        }
+    </select>
+    <br />
     <label>Member Sector</label>
     <input type="text" @bind-value="companyMemberReg.Company_Member_Sector" /><br />
     <label>Member Reg datetime</label>
@@ -62,7 +68,10 @@
     private string? msg { get; set; }
     private CompanyMemberRegModel companyMemberReg = new CompanyMemberRegModel();
     private List<CompanyMemberRegModel> companyMembersList = new List<CompanyMemberRegModel>();
+    private List<TourismModel> Cities = new List<TourismModel>();
+    private int citycode { get; set; }
     private void SaveCompanyMember(){
+        companyMemberReg.City_ID = citycode;
         int i = CompanyMemberRegDAL.SaveCompanyMember(companyMemberReg);
         if(i==1){
             msg = "Member Saved Successfully";
@@ -75,6 +84,7 @@
     protected override void OnInitialized()
     {
         GetCompanyMembers();
+        Loadcities();
     }
     private void GetCompanyMembers(){
         companyMembersList = CompanyMemberRegDAL.GetCompanyMembers();
@@ -90,5 +100,11 @@
         {
             msg = "Error while Deleting member";
         }
+    }
+    private void Loadcities(){
+        Cities = TourismDAL.GetCities();
+    }
+    private void selectedcitycode(ChangeEventArgs e){
+        citycode = int.Parse(e.Value.ToString());
     }
 }
