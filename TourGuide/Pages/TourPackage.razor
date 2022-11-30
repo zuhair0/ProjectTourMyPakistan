@@ -1,0 +1,62 @@
+﻿@page "/tourpackage/{Tour_Guide_ID}"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>TourPackage</h3>
+<EditForm Model="tourPackage" OnSubmit="SaveTourPackage">
+    <label>Title</label>
+    <input type="text" @bind-value="tourPackage.PKG_Title" />
+    <label>Duration</label>
+    <input type="text" @bind-value="tourPackage.PKG_Duration" />
+    <label>Pricing</label>
+    <input type="text" @bind-value="tourPackage.PKG_Pricing" />
+    <label>From City</label>
+    <select @onchange="SelectedFROMcity">
+        @foreach (var item in Cities)
+        {
+            <option value="@item.City_name">@item.City_name</option>
+        }
+    </select>@Fromcity
+    <label>To City</label>
+    <select @onchange="SelectedTOcity">
+        @foreach (var item in Cities)
+        {
+            <option value="@item.City_name">@item.City_name</option>
+        }
+    </select>@Tocity
+    <button type="submit">Save</button>
+</EditForm>
+<p>@msg</p>
+@code {
+    [Parameter]
+    public string? Tour_Guide_ID { get; set; }
+    private string? msg { get; set; }
+    private string? Fromcity { get; set; }
+    private string? Tocity { get; set; }
+    private List<TourismModel> Cities = new List<TourismModel>();
+    private TourPackageModel tourPackage = new TourPackageModel();
+    private void SaveTourPackage(){
+        tourPackage.Tour_Guide_ID = int.Parse(Tour_Guide_ID);
+        tourPackage.PKG_From_City = Fromcity;
+        tourPackage.PKG_To_City = Tocity;
+        int i = TourPackageDAL.SaveTourPackage(tourPackage);
+        if(i==1){
+            msg = "Tour Package saved succefully";
+        }
+        else{
+            msg = "Error while saving Tour Package";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        LoadCities();
+    }
+    private void LoadCities(){
+        Cities = TourismDAL.GetCities();
+    }
+    private void SelectedFROMcity(ChangeEventArgs e){
+        Fromcity = e.Value.ToString();
+    }
+    private void SelectedTOcity(ChangeEventArgs e){
+        Tocity = e.Value.ToString();
+    }
+}
