@@ -25,5 +25,38 @@ namespace ClassLibraryDAL
             con.Close();
             return i;
         }
+        public static List<TourPackageModel> GetPackages()
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_GetPackages", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader sdr = cmd.ExecuteReader();
+            List<TourPackageModel> TourPackageList = new List<TourPackageModel>();
+            while (sdr.Read())
+            {
+                TourPackageModel tourpm = new TourPackageModel();
+                tourpm.Tour_Guide_ID = int.Parse(sdr["Tour_Guide_ID"].ToString());
+                tourpm.PKG_Title = sdr["PKG_Title"].ToString();
+                tourpm.PKG_Duration = sdr["PKG_Duration"].ToString();
+                tourpm.PKG_Pricing = sdr["PKG_Pricing"].ToString();
+                tourpm.PKG_From_City = sdr["PKG_From_City"].ToString();
+                tourpm.PKG_To_City = sdr["PKG_To_City"].ToString();
+                TourPackageList.Add(tourpm);
+            }
+            con.Close();
+            return TourPackageList;
+        }
+        public static int DeleteTourPackage(int Tour_Guide_ID)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_DeletePackage", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Tour_Guide_ID", Tour_Guide_ID);
+            int i = cmd.ExecuteNonQuery();
+            con.Close();
+            return i;
+        }
     }
 }
