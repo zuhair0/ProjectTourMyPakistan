@@ -16,8 +16,5 @@ namespace ClassLibraryModel
         public string? PKG_From_City { get; set; }
         public string? PKG_To_City { get; set; }
 
-
-
-
     }
 }
