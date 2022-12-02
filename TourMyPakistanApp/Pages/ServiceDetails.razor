@@ -4,35 +4,42 @@
 @using ClassLibraryModel
 <h3 class="text-center">SERVICE #@sub_cat_id DETAILS</h3>
 <EditForm Model="serviceDetails" OnSubmit="SaveServiceDetails">
-    <label>Enter service detail title</label>
-    <input type="text" @bind-value="serviceDetails.SD_Title" required/>
-    <label>Enter Price</label>
-    <input type="text" @bind-value="serviceDetails.SD_Price" required />
-    <label>Enter Quantity</label>
-    <input type="text" @bind-value="serviceDetails.SD_Quantity" required />
-    <label>Enter unit</label>
-    <input type="text" @bind-value="serviceDetails.SD_Unit" required />
-    <button type="submit">Save</button>
+    <div class="row">
+        <label class="col-3">Service Title: </label>
+        <input class="col-5" type="text" @bind-value="serviceDetails.SD_Title" placeholder="Title..." required/>
+    </div>
+    <hr />
+    <div class="row">
+        <label class="col-3">Price: (PKR) </label>
+        <input class="col-2" type="number" @bind-value="serviceDetails.SD_Price" placeholder="Price (PKR)" required />
+        <label class="col-2">Quantity: </label>
+        <input class="col-1" type="number" @bind-value="serviceDetails.SD_Quantity" placeholder="Quantity..." required />
+        <label class="col-2">Unit: </label>
+        <input class="col-1" type="number" @bind-value="serviceDetails.SD_Unit" placeholder="Unit..." required />
+        <button type="submit" class="btn btn-primary col-1">SAVE</button>
+    </div><hr />
+    
 </EditForm>
-<p>@msg</p>
+<p class="text-danger">@msg</p>
 <table class="table table-bordered">
     <thead>
-        <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Unit</th>
+        <tr class="row">
+            <th class="col-4">TITLE</th>
+            <th class="col-2">PRICE (PKR)</th>
+            <th class="col-2">QTY</th>
+            <th class="col-2">UNIT</th>
+            <th class="col-2">ACTION</th>
         </tr>
     </thead>
     @foreach (var item in serviceDetailsList)
     {
-        <tr>
-            <td>@item.SD_Title</td>
-            <td>@item.SD_Price</td>
-            <td>@item.SD_Quantity</td>
-            <td>@item.SD_Unit</td>
-            <td>
-                <button @onclick="(()=>DeleteServiceSubCategory(item.SD_ID))">Delete</button>
+        <tr class="row">
+            <td class="col-4">@item.SD_Title</td>
+            <td class="col-2">@item.SD_Price</td>
+            <td class="col-2">@item.SD_Quantity</td>
+            <td class="col-2">@item.SD_Unit</td>
+            <td class="col-2">
+                <button @onclick="(()=>DeleteServiceSubCategory(item.SD_ID))" class="btn btn-outline-danger">DELETE</button>
             </td>
         </tr>
     }
@@ -49,12 +56,12 @@
         int i = ServiceDetailsDAL.SaveServiceDetails(serviceDetails);
         if (i == 1)
         {
-            msg = "Add View Point Image Succefully";
+            msg = "Service added Successully...";
             GetServiceDetails();
         }
         else
         {
-            msg = "Error while saving View Point Image";
+            msg = "Error while saving...";
         }
     }
     protected override void OnInitialized()
@@ -69,12 +76,12 @@
         int i = ServiceDetailsDAL.DeleteServiceSubCategory(id);
         if (i == 1)
         {
-            msg = "Service Sub Category deleted successfully";
+            msg = "Service successfully removed...";
             GetServiceDetails();
         }
         else
         {
-            msg = "Error while deleting Service Sub Catergoryt";
+            msg = "Error while deleting...";
         }
     }
 }
