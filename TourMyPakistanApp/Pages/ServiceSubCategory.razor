@@ -1,31 +1,32 @@
 ﻿@page "/servicesubcat/{catid}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3>ServiceSubCategory</h3>
+<h3 class="text-center">SERVICE#@catid - SUB-CATEGORY</h3>
 <EditForm Model="serviceSubCategoryModel" OnSubmit="SaveServiceSubCategory">
-    <label>Enter Service Sub Category</label>
-    <input type="text" @bind-value="serviceSubCategoryModel.Sub_Cat_Title" required/>
-    <button type="submit">save</button>
+    <label>Sub-category Title: </label>
+    <input type="text" @bind-value="serviceSubCategoryModel.Sub_Cat_Title" placeholder="Title..." required/>
+    <button type="submit" class="btn btn-primary">SAVE</button>
 </EditForm>
 <p>@msg</p>
 <table class="table table-bordered">
     <thead>
-        <tr>
-            <th>Sub Service category id</th>
-            <th>Sub service category title</th>
-            <th>Action</th>
+        <tr class="row">
+            <th class="col-2">ID</th>
+            <th class="col-5">TITLE</th>
+            <th class="col-2">ACTION</th>
+            <th class="col-3">More...</th>
         </tr>
     </thead>
     @foreach (var item in serviceSubCategoriesList)
     {
-        <tr>
-            <td>@item.Cat_ID</td>
-            <td>@item.Sub_Cat_Title</td>
-            <td>
-                <button @onclick="(()=>DeleteServiceSubCategory(item.Sub_cat_ID))">Delete</button>
+        <tr class="row">
+            <td class="col-2">@item.Cat_ID</td>
+            <td class="col-5">@item.Sub_Cat_Title</td>
+            <td class="col-2">
+                <button @onclick="(()=>DeleteServiceSubCategory(item.Sub_cat_ID))" class="btn btn-outline-danger">DELETE</button>
             </td>
-            <td>
-                <a href="addservicedetails/@item.Cat_ID">Add details</a>
+            <td class="col-3">
+                <a href="addservicedetails/@item.Cat_ID" class="btn btn-outline-primary">ADD DETAILS</a>
             </td>
         </tr>
     }
@@ -40,11 +41,11 @@
         serviceSubCategoryModel.Cat_ID = int.Parse(catid);
         int i = ServiceSubCategoryDAL.SaveServiceSubCategory(serviceSubCategoryModel);
         if(i==1){
-            msg = "Service Sub Category Saved successfully";
+            msg = "Saved successfully...";
             GetServicSubCategory();
         }
         else{
-            msg = "Error while saving Service Sub Catergoryt";
+            msg = "Error while saving...";
         }
     }
     protected override void OnInitialized()
@@ -58,12 +59,12 @@
         int i = ServiceSubCategoryDAL.DeleteServiceSubCategory(id);
         if (i == 1)
         {
-            msg = "Service Sub Category deleted successfully";
+            msg = "Deleted successfully...";
             GetServicSubCategory();
         }
         else
         {
-            msg = "Error while deleting Service Sub Catergoryt";
+            msg = "Error while deleting...";
         }
     }
 }

@@ -2,16 +2,16 @@
 @*parent child communiction in blazor server6.0*@
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3>ServiceDetails</h3>
+<h3 class="text-center">SERVICE #@sub_cat_id DETAILS</h3>
 <EditForm Model="serviceDetails" OnSubmit="SaveServiceDetails">
     <label>Enter service detail title</label>
-    <input tytype="text" @bind-value="serviceDetails.SD_Title" required/>
+    <input type="text" @bind-value="serviceDetails.SD_Title" required/>
     <label>Enter Price</label>
-    <input tytype="text" @bind-value="serviceDetails.SD_Price" required />
+    <input type="text" @bind-value="serviceDetails.SD_Price" required />
     <label>Enter Quantity</label>
-    <input tytype="text" @bind-value="serviceDetails.SD_Quantity" required />
+    <input type="text" @bind-value="serviceDetails.SD_Quantity" required />
     <label>Enter unit</label>
-    <input tytype="text" @bind-value="serviceDetails.SD_Unit" required />
+    <input type="text" @bind-value="serviceDetails.SD_Unit" required />
     <button type="submit">Save</button>
 </EditForm>
 <p>@msg</p>
