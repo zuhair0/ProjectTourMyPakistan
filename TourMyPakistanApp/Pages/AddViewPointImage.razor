@@ -1,33 +1,34 @@
 ﻿@page "/addviewpointimage/{vpid}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3>AddViewPointImage</h3>
+<h3 class="text-center">ADD VIEW POINT IMAGES</h3>
 <EditForm Model="viewPointImage" OnSubmit="SaveViewPointImage">
-    <label>View point Image URL:</label>
-    <input type="text" @bind-value="viewPointImage.VP_image_url" required />
-    <label>View point Image detail_eng:</label>
-    <input type="text" @bind-value="viewPointImage.Vp_detail_Eng" required />
-    <button type="submit">Save View Point Image</button>
+    <div class="row">
+        <input class="col-4" type="text" @bind-value="viewPointImage.VP_image_url" placeholder="Image URL (https://)" required />
+        <input class="col-6" type="text" @bind-value="viewPointImage.Vp_detail_Eng" placeholder="Image Detail" required />
+        <button class="col-2 btn btn-primary" type="submit">Save</button>
+    </div>
 </EditForm>
-<p>@msg</p>
-
+<p class="text-danger">@msg</p>
+<h3>IMAGES INFORMATION</h3>
 <table class="table table-bordered">
     <thead>
-        <tr>
-            <th>View point id</th>
-            <th>View point image URL</th>
-            <th>View point image Details</th>
+        <tr class="row">
+            <th class="col-1">ID</th>
+            <th class="col-5">URL</th>
+            <th class="col-5">DETAILS</th>
+            <th class="col-1">ACTION</th>
         </tr>
     </thead>
     @foreach (var item in viewPointImagesList)
     {
-        <tr>
-            <td>@item.VP_id</td>
-            <td>@item.VP_image_url</td>
-            <td>@item.Vp_detail_Eng</td>
-            <td>
-                <button @onclick="(()=>DeleteViewpointImage(item.VP_id))">
-                    Delete
+        <tr class="row">
+            <td class="col-1">@item.VP_id</td>
+            <td class="col-5">@item.VP_image_url</td>
+            <td class="col-5">@item.Vp_detail_Eng</td>
+            <td class="col-1">
+                <button class="btn btn-outline-danger" @onclick="(()=>DeleteViewpointImage(item.VP_id))">
+                    DELETE
                 </button>
             </td>
         </tr>
@@ -43,11 +44,11 @@
         viewPointImage.VP_id = int.Parse(vpid);
         int i = ViewPointImageDAL.SaveViewPointImage(viewPointImage);
         if(i==1){
-            msg = "Add View Point Image Succefully";
+            msg = "Successfully saved...";
             GetViewPointImage();
         }
         else{
-            msg = "Error while saving View Point Image";
+            msg = "Error while deletion...";
         }
     }
     protected override void OnInitialized()
@@ -60,11 +61,11 @@
     private void DeleteViewpointImage(int id){
         int i = ViewPointImageDAL.DeleteViewPointImage(id);
         if(i==1){
-            msg = "Deleted succesfully";
+            msg = "Deleted succesfully...";
             GetViewPointImage();
         }
         else{
-            msg = "Error while deleting";
+            msg = "Error while deleting...";
         }
     }
 }
