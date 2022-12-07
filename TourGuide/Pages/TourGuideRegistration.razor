@@ -1,39 +1,39 @@
 ﻿@page "/tourguidereg"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3>TourGuideRegistration</h3>
+<h3 class="text-center">Tour Guide Registration</h3>
 <EditForm Model="tourGuideRegistration" OnSubmit="SaveTourGuideReg">
-    <label>Name</label>
+    <label>Name: </label>
     <input type="text" @bind-value="tourGuideRegistration.TG_name" /><br />
-    <label>cnic</label>
-    <input type="text" @bind-value="tourGuideRegistration.TG_cnic" /><br />
-    <label>DOB</label>
+    <label>CNIC# </label>
+    <input type="number" @bind-value="tourGuideRegistration.TG_cnic" /><br />
+    <label>D.O.B: </label>
     <input type="text" @bind-value="tourGuideRegistration.TG_DOB" /><br />
-    <label>Gender</label>
+    <label>Gender: </label>
     <input type="text" @bind-value="tourGuideRegistration.TG_Gender" /><br />
-    <label>Mobile</label>
-    <input type="text" @bind-value="tourGuideRegistration.TG_Mobile" /><br />
-    <label>Whatsapp</label>
-    <input type="text" @bind-value="tourGuideRegistration.TG_Whatsapp" /><br />
-    <label>Landline</label>
-    <input type="text" @bind-value="tourGuideRegistration.TG_Landline" /><br />
+    <label>Mobile: </label>
+    <input type="number" @bind-value="tourGuideRegistration.TG_Mobile" /><br />
+    <label>WhatsApp</label>
+    <input type="number" @bind-value="tourGuideRegistration.TG_Whatsapp" /><br />
+    <label>Landline: </label>
+    <input type="number" @bind-value="tourGuideRegistration.TG_Landline" /><br />
     <label>City</label>
     <select @onchange="SelectedCity">
         @foreach (var item in CityList)
         {
             <option value="@item.City_name">@item.City_name</option>
         }
-    </select>@city<br />
+    </select> @city<br />
     <label>Sector</label>
     <input type="text" @bind-value="tourGuideRegistration.TG_Sector" /><br />
-    <label>Longitude</label>
-    <input type="text" @bind-value="tourGuideRegistration.TG_Longitude" /><br />
-    <label>Latitude</label>
-    <input type="text" @bind-value="tourGuideRegistration.TG_latitude" /><br />
+    <label>Longitude: </label>
+    <input type="number" @bind-value="tourGuideRegistration.TG_Longitude" /><br />
+    <label>Latitude: </label>
+    <input type="number" @bind-value="tourGuideRegistration.TG_latitude" /><br />
     <label>Reg Date</label>
-    <input type="datetime" @bind-value="tourGuideRegistration.TG_registration_date" /><br />
+    <input type="datetime" @bind-value="tourGuideRegistration.TG_registration_date" min="1/1/2000 12:00:00 AM"/><br />
     <label>Reg Time</label>
-    <input type="datetime" @bind-value="tourGuideRegistration.TG_registration_time" /><br 
+    <input type="datetime" @bind-value="tourGuideRegistration.TG_registration_time" min="1/1/2000 12:00:00 AM"/><br />
 
     <button type="submit">save</button>
 </EditForm>
