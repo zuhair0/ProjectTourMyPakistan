@@ -1,0 +1,71 @@
+﻿@page "/userreg"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>UserRegistration</h3>
+<EditForm Model="userRegistration" OnSubmit="SaveUser">
+    <lable>Name</lable>
+    <input type="text" @bind-value="userRegistration.Name" /><br />
+    <lable>mobile</lable>
+    <input type="text" @bind-value="userRegistration.Mobile" /><br />
+    <lable>email</lable>
+    <input type="text" @bind-value="userRegistration.Email" /><br />
+    <lable>address</lable>
+    <input type="text" @bind-value="userRegistration.Address" /><br />
+    <button type="submit">Save</button>
+</EditForm>
+@msg
+<table class="table table-bordered">
+    <thead>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Action</th>
+    </thead>
+    @foreach (var item in usersList){
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Mobile</td>
+            <td>@item.Email</td>
+            <td>@item.Address</td>
+            <td>
+                <button @onclick="(()=>DeleteUser(item.ID))">Delete</button>
+            </td>
+
+        </tr>
+    }
+</table>
+@code {
+    private string? msg { get; set; }
+    private UserRegistrationModel userRegistration = new UserRegistrationModel();
+    private List<UserRegistrationModel> usersList = new List<UserRegistrationModel>();
+    private void SaveUser(){
+        int i = UserRegistrationDAL.SaveUser(userRegistration);
+        if(i==1){
+            msg = "User Added Succesfully";
+            GetUsers();
+        }
+        else{
+            msg = "Error while saving user";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        GetUsers();
+    }
+    private void GetUsers(){
+        usersList = UserRegistrationDAL.GetUsers();
+    }
+    private void DeleteUser(int id){
+        int i = UserRegistrationDAL.DeleteUser(id);
+        if (i == 1)
+        {
+            msg = "User deleted Succesfully";
+            GetUsers();
+        }
+        else
+        {
+            msg = "Error while deleting user";
+        }
+    }
+}
