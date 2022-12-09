@@ -62,6 +62,37 @@ namespace ClassLibraryDAL
             con.Close();
             return tourCompaniesList;
         }
+        public static List<TourCompanyRegModel> GetTourCompanyRegistration(int id)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_GetCompanyByTourID", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Tour_guide_id", id);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<TourCompanyRegModel> tourCompaniesList = new List<TourCompanyRegModel>();
+            while (reader.Read())
+            {
+                TourCompanyRegModel tourCompany = new TourCompanyRegModel();
+                tourCompany.Company_ID = int.Parse(reader["Company_ID"].ToString());
+                tourCompany.Tour_guide_id = int.Parse(reader["Tour_guide_id"].ToString());
+                tourCompany.Company_name = reader["Company_name"].ToString();
+                tourCompany.Company_sector = reader["Company_sector"].ToString();
+                tourCompany.City_id = int.Parse(reader["City_id"].ToString());
+                tourCompany.Company_longitude_latitude = int.Parse(reader["Company_longitude_latitude"].ToString());
+                tourCompany.Company_website = reader["Company_website"].ToString();
+                tourCompany.Company_Facebook = reader["Company_Facebook"].ToString();
+                tourCompany.Company_Instagram = reader["Company_Instagram"].ToString();
+                tourCompany.Company_contact1 = int.Parse(reader["Company_contact1"].ToString());
+                tourCompany.Company_contact2 = int.Parse(reader["Company_contact2"].ToString());
+                tourCompany.Company_Whatsapp = int.Parse(reader["Company_Whatsapp"].ToString());
+                tourCompany.Company_Landline = int.Parse(reader["Company_Landline"].ToString());
+                //tourCompany.Tour_Company_Registration_date_time = reader["Tour_Company_Registration_date_time"].ToString();
+                tourCompaniesList.Add(tourCompany);
+            }
+            con.Close();
+            return tourCompaniesList;
+        }
         public static int DeleteTourGuide(int Company_ID)
         {
             SqlConnection con = DBHelper.GetConnection();

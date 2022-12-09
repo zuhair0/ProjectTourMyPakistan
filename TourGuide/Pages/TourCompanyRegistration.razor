@@ -93,8 +93,10 @@
         GetTourCompanyReg();
         Loadcity();
     }
-    private void GetTourCompanyReg(){
-        tourCompanyRegsList = TourCompanyRegDAL.GetTourCompanyRegistrations();
+    private void GetTourCompanyReg()
+    {
+        tourCompanyRegsList = TourCompanyRegDAL.GetTourCompanyRegistration(int.Parse(TG_id));
+
     }
     private void DeleteTourCompany(int id){
         int i = TourCompanyRegDAL.DeleteTourGuide(id);

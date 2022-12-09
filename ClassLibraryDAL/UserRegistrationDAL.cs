@@ -13,12 +13,14 @@ namespace ClassLibraryDAL
         {
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand("Sp_SaveUser", con);
+            SqlCommand cmd = new SqlCommand("Sp_UserReg", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name",urm.Name);
             cmd.Parameters.AddWithValue("@Mobile",urm.Mobile);
             cmd.Parameters.AddWithValue("@Email",urm.Email);
             cmd.Parameters.AddWithValue("@Address",urm.Address);
+            cmd.Parameters.AddWithValue("@UserName", urm.UserName);
+            cmd.Parameters.AddWithValue("@Password", urm.Password);
             int i = cmd.ExecuteNonQuery();
             return i;
         }
@@ -26,7 +28,7 @@ namespace ClassLibraryDAL
         {
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand("Sp_GetUsers", con);
+            SqlCommand cmd = new SqlCommand("Sp_GetRegUsers", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             SqlDataReader sdr = cmd.ExecuteReader();
             List<UserRegistrationModel> usersList = new List<UserRegistrationModel>();
@@ -38,6 +40,8 @@ namespace ClassLibraryDAL
                 user.Mobile = long.Parse(sdr["Mobile"].ToString());
                 user.Email = sdr["Email"].ToString();
                 user.Address = sdr["Address"].ToString();
+                user.Address = sdr["UserName"].ToString();
+                user.Address = sdr["Password"].ToString();
                 usersList.Add(user);
             }
             con.Close();

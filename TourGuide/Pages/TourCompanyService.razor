@@ -49,24 +49,25 @@
             </div>
         </div>
     }*@
+    <table class="table table-bordered">
+        <thead>
+        <th>Service Title</th>
+        <th>Action</th>
+        </thead>
+        @foreach (var item in serviceDetailsList)
+        {
+            <tr>
+                <td>@item.SD_Title</td>
+                <td>
+                    <button @onclick="(()=>SelectedServiceDetailID(item.SD_ID))">Add</button>
+                </td>
+            </tr>
+        }
+        @ServiceDetailsID
+    </table>
     <button type="submit">Save</button>
 </EditForm>
-<table class="table table-bordered">
-    <thead>
-    <th>Service Title</th>
-    <th>Action</th>
-    </thead>
-    @foreach (var item in serviceDetailsList)
-    {
-        <tr>
-            <td>@item.SD_Title</td>
-            <td>
-                <button @onclick="(()=>SelectedServiceDetailID(item.SD_ID))">Add</button>
-            </td>
-        </tr>
-    }
-    @ServiceDetailsID
-</table>
+
 @*<button @onclick="SaveItem">dislay</button>*@
 
 <p>@msg</p>
