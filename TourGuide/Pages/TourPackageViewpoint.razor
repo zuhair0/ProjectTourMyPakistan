@@ -3,11 +3,27 @@
 @using ClassLibraryModel
 <h3>TourPackageViewpoint</h3>
 <EditForm Model="tourpackageviewpoint" OnSubmit="SaveTourPackageViewpoint">
+    <label>Vp id</label>
+    <input type="text" @bind-value="tourpackageviewpoint.Vp_id"/>
+    <label>Field</label>
+    <input type="text" @bind-value="tourpackageviewpoint.Field" />
 
-
+    <button type="submit">Save</button>
 </EditForm>
-
-
+@msg
+<table class="table table-bordered">
+    <thead>
+        <th>VP id</th>
+        <th>Field</th>
+    </thead>
+    @foreach (var item in tourpackageviewpointList)
+    {
+        <tr>
+            <td>@item.Vp_id</td>
+            <td>@item.Field</td>
+        </tr>
+    }
+</table>
 
 
 @code {

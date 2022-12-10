@@ -1,0 +1,11 @@
+﻿@page "/tourpackageservice/{company_service_id}"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>TourPackageServices</h3>
+
+@code {
+    [Parameter]
+    public string? company_service_id { get; set; }
+    private TourPackageServicesModel tourPackageServices = new TourPackageServicesModel();
+    private List<TourPackageServicesModel> tourPackagesList = new List<TourPackageServicesModel>();
+}
