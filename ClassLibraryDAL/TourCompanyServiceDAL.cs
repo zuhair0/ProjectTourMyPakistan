@@ -55,3 +55,25 @@ namespace ClassLibraryDAL
         }
     }
 }
+
+//create proc Sp_SaveTourCompanyService
+//@Category_ID int,
+//@Sub_Category_ID int,
+//@SD_ID int
+//as begin
+//insert into Tour_Company_Service([Category_ID], [Sub_Category_ID], [SD_ID])
+//values(@Category_ID,
+//@Sub_Category_ID,
+//@SD_ID)
+//end
+
+//create proc Sp_GetTourCompanyService
+//as begin
+//select * from Tour_Company_Service
+//end
+
+//create proc Sp_DeleteTourCompanyService
+//@Company_Service_ID int
+//as begin
+//delete from Tour_Company_Service where Company_Service_ID=@Company_Service_ID
+//end
