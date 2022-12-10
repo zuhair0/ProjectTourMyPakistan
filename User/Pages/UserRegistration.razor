@@ -1,21 +1,29 @@
 ﻿@page "/userreg"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3>UserRegistration</h3>
+<h3 class="text-center">Register User</h3>
 <EditForm Model="userRegistration" OnSubmit="SaveUser">
-    <lable>Name</lable>
-    <input type="text" @bind-value="userRegistration.Name" /><br />
-    <lable>mobile</lable>
-    <input type="text" @bind-value="userRegistration.Mobile" /><br />
-    <lable>email</lable>
-    <input type="text" @bind-value="userRegistration.Email" /><br />
-    <lable>address</lable>
-    <input type="text" @bind-value="userRegistration.Address" /><br />
-    <lable>UserName</lable>
-    <input type="text" @bind-value="userRegistration.UserName" /><br />
-    <lable>Password</lable>
-    <input type="text" @bind-value="userRegistration.Password" /><br />
-    <button type="submit">Save</button>
+    <div class="row">
+        <label class="col-1">Name</label>
+        <input class="col-5"type="text" @bind-value="userRegistration.Name" required/>
+        <label class="col-1">Mobile</label>
+        <input class="col-5" type="number" @bind-value="userRegistration.Mobile" required/>
+    </div>
+    <div class="row">
+        <label class="col-1">Email</label>
+        <input class="col-5" type="email" @bind-value="userRegistration.Email" required />
+        <label class="col-1">Address</label>
+        <input class="col-5" type="text" @bind-value="userRegistration.Address" required />
+    </div>
+    <hr />
+    <div class="text-center">
+        <lable>User Name</lable>
+        <input type="text" @bind-value="userRegistration.UserName" required/>
+        <lable>Password</lable>
+        <input type="password" @bind-value="userRegistration.Password" required/>
+        <button class="btn btn-outline-success" type="submit">SAVE</button>
+    </div>
+    
 </EditForm>
 @msg
 <table class="table table-bordered">
