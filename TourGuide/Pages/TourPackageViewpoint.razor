@@ -1,0 +1,57 @@
+﻿@page "/tourPackageViewpoint/{Vp_id}"
+@using ClassLibraryDAL
+@using ClassLibraryModel
+<h3>TourPackageViewpoint</h3>
+<EditForm Model="tourpackageviewpoint" OnSubmit="SaveTourPackageViewpoint">
+
+
+</EditForm>
+
+
+
+
+@code {
+    [Parameter]
+    public string? Vp_id { get; set; }
+    private string? msg { get; set; }
+    private TourPackageViewpointModel tourpackageviewpoint = new TourPackageViewpointModel();
+    private List<TourPackageViewpointModel> tourpackageviewpointList = new List<TourPackageViewpointModel>();
+    private void SaveTourPackageViewpoint()
+    {
+        tourpackageviewpoint.Vp_id = int.Parse(Vp_id);
+        int i = TourPackageViewpointDAL.SaveTourPackageViewpoint(tourpackageviewpoint);
+        if (i == 1)
+        {
+            msg = "TourPackageViewpoint Saved successfully";
+            GetTourPackageViewpoint();
+        }
+        else
+        {
+            msg = "Error while saving TourPackageViewpoint";
+        }
+
+    }
+    protected override void OnInitialized()
+    {
+        GetTourPackageViewpoint();
+    }
+    private void GetTourPackageViewpoint()
+    {
+        tourpackageviewpointList = TourPackageViewpointDAL.GetTourPackageViewpoints();
+
+
+    }
+    private void DeleteTourPackageViewpoint(int id)
+    {
+        int i = TourPackageViewpointDAL.DeleteTourPackageViewpoint(id);
+        if (i == 1)
+        {
+            msg = "TourPackageViewpoint Deleted Successfully";
+            GetTourPackageViewpoint();
+        }
+        else
+        {
+            msg = "Error while Deleting TourPackageViewpoint";
+        }
+    }
+}
