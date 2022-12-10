@@ -1,37 +1,37 @@
 ﻿@page "/addservicecategory"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3 class="text-center">Add a Service Category</h3><br />
+<h3 class="text-center">ADD A SERVICE CATEGORY</h3><br />
 <EditForm Model="serviceCategoryModel" OnSubmit="SaveServiceCategory">
-    <div>
-        <label>Service Category type:</label>
-        <input type="text" @bind-value="serviceCategoryModel.Cat_Type" required />
-        <label>Service Category Title:</label>
-        <input type="text" @bind-value="serviceCategoryModel.Cat_Title" required />
-        <button type="submit" class="btn btn-primary">Save Service Category</button>
+    <div class="row">
+        <input type="text" @bind-value="serviceCategoryModel.Cat_Type" placeholder="Cat. Type..." class="col-5" required />
+        <input type="text" @bind-value="serviceCategoryModel.Cat_Title" placeholder="Cat. Title..." class="col-5" required />
+        <button type="submit" class="btn btn-primary col-2">SAVE</button>
     </div>
 </EditForm>
-<p class="text-danger text-center">@msg</p>
+<p class="text-danger">@msg</p>
+<h3>SERVICE CATEGORY INFORMATION</h3>
 <table class="table table-bordered">
     <thead>
-        <tr>
-            <th>Service Title</th>
-            <th>Service Type</th>
-            <th>Action</th>
+        <tr class="row">
+            <th class="col-4">TITLE</th>
+            <th class="col-3">TYPE</th>
+            <th class="col-2">Action</th>
+            <th class="col-3">More...</th>
         </tr>
     </thead>
     @foreach (var item in serviceCategoriesList)
     {
-        <tr>
-            <td>@item.Cat_Title</td>
-            <td>@item.Cat_Type</td>
-            <td>
-                <button @onclick="(()=>DeleteServiceCategory(item.Cat_ID))">
-                    delete
+        <tr class="row">
+            <td class="col-4">@item.Cat_Title</td>
+            <td class="col-3">@item.Cat_Type</td>
+            <td class="col-2">
+                <button @onclick="(()=>DeleteServiceCategory(item.Cat_ID))" class="btn btn-outline-danger">
+                    DELETE
                 </button>
             </td>
-            <td>
-                <a href="servicesubcat/@item.Cat_ID">Add service sub cat</a>
+            <td class="col-3">
+                <a href="servicesubcat/@item.Cat_ID" class="btn btn-outline-primary">ADD A SUB-CATEGORY</a>
             </td>
         </tr>
     }
@@ -45,12 +45,12 @@
         int i = ServiceCateoryDAL.SaveServiceCategory(serviceCategoryModel);
         if (i == 1)
         {
-            msg = "Service Category saved Successfully";
+            msg = "Successfully Saved...";
             GetServiceCategories();
         }
         else
         {
-            msg = "Error while saving Service Category";
+            msg = "Error while saving...";
         }
     }
     protected override void OnInitialized()
@@ -63,11 +63,11 @@
     private void DeleteServiceCategory(int id){
         int i = ServiceCateoryDAL.DeleteServiceCategory(id);
         if(i==1){
-            msg = "Delete Succefully";
+            msg = "Successfully Deleted...";
             GetServiceCategories();
         }
         else{
-            msg = "Error while Deleting";
+            msg = "Deletion error...";
         }
     }
 

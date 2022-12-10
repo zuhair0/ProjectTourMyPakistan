@@ -11,4 +11,8 @@
     <ProjectReference Include="..\ClassLibraryModel\ClassLibraryModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Company\" />
+  </ItemGroup>
+
 </Project>

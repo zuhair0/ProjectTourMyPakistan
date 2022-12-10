@@ -18,15 +18,58 @@
         }
     </select>@SubCatID<br />
     <label>Service Details</label>
-    <select @onchange="SelectedServiceDetailID">
+    @*<select @onchange="SelectedServiceDetailID">
         @foreach (var item in serviceDetailsList)
         {
             <option value="@item.SD_ID">@item.SD_Title</option>
         }
-    </select>@ServiceDetailsID<br />
+    </select>@ServiceDetailsID<br />*@
+   @* @foreach (var item in serviceDetailsList)
+    {
+        <input type="checkbox" @onchange="Checkedvalue" value="@item.SD_ID"/>@item.SD_Title @ischecked<br />
+        
+    }
+    @foreach (var i in selecteddetails)
+    {
+        Console.WriteLine(i);
+    }*@
+    @*@foreach (var item in serviceDetailsList)
+    {
+        <div class="col-md-6 mt-2">
 
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" @onchange="e=>{CustomLogicsDAL.CheckboxClicked(item.SD_Title, e.Value);}" />
+                        <label class="form-check-label" for="flexCheckDefault">
+                            @item.SD_Title
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }*@
+    <table class="table table-bordered">
+        <thead>
+        <th>Service Title</th>
+        <th>Action</th>
+        </thead>
+        @foreach (var item in serviceDetailsList)
+        {
+            <tr>
+                <td>@item.SD_Title</td>
+                <td>
+                    <button @onclick="(()=>SelectedServiceDetailID(item.SD_ID))">Add</button>
+                </td>
+            </tr>
+        }
+        @ServiceDetailsID
+    </table>
     <button type="submit">Save</button>
 </EditForm>
+
+@*<button @onclick="SaveItem">dislay</button>*@
+
 <p>@msg</p>
 <table class="table table-bordered">
     <thead>
@@ -49,6 +92,8 @@
     }
 </table>
 @code {
+    private List<string> selecteddetails = new List<string>();
+    private string? ChecKedItems { get; set; }
     private string? msg {get;set;}
     private TourCompanyServiceModel tourCompanyService = new TourCompanyServiceModel();
     private List<TourCompanyServiceModel> tourCompanyServicesList = new List<TourCompanyServiceModel>();
@@ -116,7 +161,36 @@
     private void LoadServiceDetails(){
         serviceDetailsList = ServiceDetailsDAL.GetServiceDetails();
     }
-    private void SelectedServiceDetailID(ChangeEventArgs e){
-        ServiceDetailsID = int.Parse(e.Value.ToString());
+    private void SelectedServiceDetailID(int e){
+        ServiceDetailsID = e;
     }
+
+    //private void Checkedvalue(ChangeEventArgs e){
+    //    ChecKedItems = e.Value.ToString();
+       
+    //    AddList(e.Value.ToString());
+    //}
+
+
+    //private void AddList(string item){
+    //    selecteddetails.Add(item);
+    //}
+
+    
+//    private void SaveItem()
+//    {
+//       {
+//                ChecKedItems =CustomLogicsDAL.checklist();
+//               // opt = string.Join("", opt.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+//                //DalManue.UpdateBuffetMenu(opt, ChecKedItems, CarehoId);
+//                CustomLogicsDAL.DisposeList();
+//                //ModelMainItem = new List<EntMainItem>();
+           
+            
+        
+       
+
+//    }
+    
+//}
 }
