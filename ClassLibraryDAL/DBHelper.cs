@@ -12,10 +12,12 @@ namespace ClassLibraryDAL
     public class DBHelper
     {
         public static SqlConnection GetConnection()
+
         {
            // AYESHA CONNECTION
             SqlConnection con = new SqlConnection("Data Source=DESKTOP-NTASNM1\\DELL;Initial Catalog=Tourism;Integrated Security=True");
             // SqlConnection con = new SqlConnection("Data Source=DESKTOP-NTASNM1\\DELL;Initial Catalog=Tourism;Integrated Security=True");
+
             return con;
         }
     }
