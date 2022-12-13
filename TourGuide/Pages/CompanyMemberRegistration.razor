@@ -3,8 +3,8 @@
 @using ClassLibraryModel
 <h3>CompanyMemberRegistration</h3>
 <EditForm Model="companyMemberReg" OnSubmit="SaveCompanyMember">
-    <label>Member Id</label>
-    <input type="text" @bind-value="companyMemberReg.Tour_Member_ID" /><br />
+    @*<label>Member Id</label>
+    <input type="text" @bind-value="companyMemberReg.Tour_Member_ID" /><br />*@
     <label>Member Firstname</label>
     <input type="text" @bind-value="companyMemberReg.Company_Member_Firstname" /><br />
     <label>Member Lastname</label>
@@ -71,6 +71,7 @@
     private List<TourismModel> Cities = new List<TourismModel>();
     private int citycode { get; set; }
     private void SaveCompanyMember(){
+        companyMemberReg.Tour_Member_ID = int.Parse(Tour_Member_ID);
         companyMemberReg.City_ID = citycode;
         int i = CompanyMemberRegDAL.SaveCompanyMember(companyMemberReg);
         if(i==1){
@@ -87,7 +88,7 @@
         Loadcities();
     }
     private void GetCompanyMembers(){
-        companyMembersList = CompanyMemberRegDAL.GetCompanyMembers();
+        companyMembersList = CompanyMemberRegDAL.GetCompanyMember(int.Parse(Tour_Member_ID));
     }
     private void DeleteMember(int id){
         int i = CompanyMemberRegDAL.DeleteCompanyMember(id);

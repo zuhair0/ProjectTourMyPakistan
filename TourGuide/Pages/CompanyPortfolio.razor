@@ -54,7 +54,7 @@
         GetCompanyPortfolio();
     }
     private void GetCompanyPortfolio(){
-            companyPortfolioList = CompanyPortfolioDAL.GetCompanyPortfolios();
+            companyPortfolioList = CompanyPortfolioDAL.GetCompanyPortfolios(int.Parse(Company_Id));
     }
     private void DeleteCompanyPortfolio(int id){
         int i=CompanyPortfolioDAL.DeleteCompanyPortfolio(id) ;

@@ -81,7 +81,7 @@
         LoadCities();
     }
     private void GetTourPackages(){
-        tourPackagesList = TourPackageDAL.GetPackages();
+        tourPackagesList = TourPackageDAL.GetPackage(int.Parse(Tour_Guide_ID));
     }
     private void LoadCities(){
         Cities = TourismDAL.GetCities();

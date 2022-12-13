@@ -61,6 +61,36 @@ namespace ClassLibraryDAL
             con.Close();
             return CompanyMembersList;
         }
+        public static List<CompanyMemberRegModel> GetCompanyMember(int id)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_GetCompanyMemberByID", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Tour_Member_ID", id);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<CompanyMemberRegModel> CompanyMembersList = new List<CompanyMemberRegModel>();
+            while (reader.Read())
+            {
+                CompanyMemberRegModel companyMembers = new CompanyMemberRegModel();
+                companyMembers.Company_Member_ID = int.Parse(reader["Company_Member_ID"].ToString());
+                companyMembers.Tour_Member_ID = int.Parse(reader["Tour_Member_ID"].ToString());
+                companyMembers.Company_Member_Firstname = reader["Company_Member_Firstname"].ToString();
+                companyMembers.Company_Member_Lastname = reader["Company_Member_Lastname"].ToString();
+                companyMembers.Company_Member_DOB = int.Parse(reader["Company_Member_DOB"].ToString());
+                companyMembers.Company_Member_Gender = reader["Company_Member_Gender"].ToString();
+                companyMembers.Company_Member_role = reader["Company_Member_role"].ToString();
+                companyMembers.Company_Member_CNIC = int.Parse(reader["Company_Member_CNIC"].ToString());
+                companyMembers.Company_Member_Whatsapp = int.Parse(reader["Company_Member_Whatsapp"].ToString());
+                companyMembers.Company_Member_Mobile = int.Parse(reader["Company_Member_Mobile"].ToString());
+                companyMembers.City_ID = int.Parse(reader["City_ID"].ToString());
+                companyMembers.Company_Member_Sector = reader["Company_Member_Sector"].ToString();
+                companyMembers.Company_Member_registration_datetime = DateTime.Parse(reader["Company_Member_registration_datetime"].ToString());
+                CompanyMembersList.Add(companyMembers);
+            }
+            con.Close();
+            return CompanyMembersList;
+        }
         public static int DeleteCompanyMember(int Company_Member_ID)
         {
             SqlConnection con = DBHelper.GetConnection();
