@@ -23,7 +23,7 @@ namespace ClassLibraryModel
         public DateTime Company_Member_registration_datetime { get; set; }
     }
 }
-//Don't know the Stored Procedures maazrat :')
+
 
 //use[Tourism]
 

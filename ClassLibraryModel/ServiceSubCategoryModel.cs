@@ -36,5 +36,5 @@ namespace ClassLibraryModel
 //delete from Service_Sub_Category where Sub_cat_ID=@Sub_cat_ID
 //end
 
-//project by ayesha
+
 
