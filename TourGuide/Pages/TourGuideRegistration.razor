@@ -1,17 +1,20 @@
 ﻿@page "/tourguidereg"
 @using ClassLibraryDAL
 @using ClassLibraryModel
+@using ClassLibraryServices
+@inject ITourGuidService tourGuidService
+
 <h3 class="text-center">Tour Guide Registration</h3>
 <EditForm Model="tourGuideRegistration" OnSubmit="SaveTourGuideReg">
     <div class="row">
         <label class="col-1">Name: </label>
-        <input class="col-3" type="text" @bind-value="tourGuideRegistration.TG_name" required/>
+        <input class="col-3" type="text" @bind-value="tourGuideRegistration.TG_name" required />
         <label class="col-1">CNIC# </label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_cnic" required/>
+        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_cnic" required />
         <label class="col-1">D.O.B: </label>
-        <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_DOB" required/>
+        <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_DOB" required />
         <label class="col-1">Gender: </label>
-        <input class="col-1" type="text" @bind-value="tourGuideRegistration.TG_Gender" required/>
+        <input class="col-1" type="text" @bind-value="tourGuideRegistration.TG_Gender" required />
     </div><br />
     <div class="row">
         <label class="col-1">Mobile: </label>
@@ -38,9 +41,9 @@
     </div><br />
     <div class="row">
         <label class="col-2">Reg Date: </label>
-        <input class="col-3"type="date" @bind-value="tourGuideRegistration.TG_registration_date"/>
+        <input class="col-3" type="date" @bind-value="tourGuideRegistration.TG_registration_date" />
         <label class="col-2">Reg Time: </label>
-        <input class="col-3" type="time" @bind-value="tourGuideRegistration.TG_registration_time"/>
+        <input class="col-3" type="time" @bind-value="tourGuideRegistration.TG_registration_time" />
         <button class="col-2 btn btn-success" type="submit">SAVE</button>
     </div><br /><p class="text-danger text-center">@msg</p>
     <hr />
@@ -78,10 +81,11 @@
 @code {
     private string? msg { get; set; }
     private TourGuideRegistrationModel tourGuideRegistration = new TourGuideRegistrationModel();
-    private List<TourGuideRegistrationModel> tourGuideRegistrationsList = new List<TourGuideRegistrationModel>();
+    private List<TourGuideRegistrationModel> tourGuideRegistrationsList { get; set; } = new List<TourGuideRegistrationModel>();
     private List<TourismModel> CityList = new List<TourismModel>();
     private string? city { get; set; }
-    private void SaveTourGuideReg(){
+    private void SaveTourGuideReg()
+    {
         tourGuideRegistration.TG_city = city;
         int i = TourGuideRegistrationDAL.SaveTourGuideRegistration(tourGuideRegistration);
         if (i == 1)
@@ -94,15 +98,17 @@
             msg = "Error while saving Tour Guide";
         }
     }
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        GetTourGuides();
+        await APIGetTourGuides();
         LoadCities();
     }
-    private void GetTourGuides(){
+    private void GetTourGuides()
+    {
         tourGuideRegistrationsList = TourGuideRegistrationDAL.GetTourGuideRegistrations();
     }
-    private void DeleteTourGuide(int id){
+    private void DeleteTourGuide(int id)
+    {
         int i = TourGuideRegistrationDAL.DeleteTourGuide(id);
         if (i == 1)
         {
@@ -114,10 +120,23 @@
             msg = "Error while deleting Tour Guide";
         }
     }
-    private void LoadCities(){
+    private void LoadCities()
+    {
         CityList = TourismDAL.GetCities();
     }
-    private void SelectedCity(ChangeEventArgs e){
+    private void SelectedCity(ChangeEventArgs e)
+    {
         city = e.Value.ToString();
+    }
+
+
+    private async Task APIGetTourGuides()
+    {
+        tourGuideRegistrationsList = await tourGuidService.GetTourGuides();
+    }
+
+    private async Task APISaveTourGuide(){
+        tourGuideRegistration.TG_city = city;
+        tourGuideRegistration = await tourGuidService.SaveTourGuide();
     }
 }

@@ -1,11 +1,77 @@
-﻿@page "/tourpackageservice/{company_service_id}"
+﻿@page "/tourpackageservice/{PKG_Id}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
 <h3>TourPackageServices</h3>
-
+<EditForm Model="tourPackageServices" OnSubmit="SaveTourPackageService">
+    <label>Company Service</label>
+    <select @onchange="SelectedCompServiceID">
+        @foreach (var item in tourCompanyServiceList)
+        {
+            <option value="@item.Company_Service_ID">@item.Company_Service_ID</option>
+        }
+    </select>@ComServiceID
+    <button type="submit">save</button>
+</EditForm>
+<p>@msg</p>
+<table class="table table-borderd">
+    <thead>
+        <th>Service id</th>
+        <th>Company service</th>
+    </thead>
+    @foreach (var item in tourPackagesList)
+    {
+        <tr>
+            <td>@item.PKG_Service_ID</td>
+            <td>@item.Company_Service_ID</td>
+            <td>
+                <button @onclick="(()=>DeleteTourPackService(item.PKG_Service_ID))">Delete</button>
+            </td>
+        </tr>
+    }
+</table>
 @code {
     [Parameter]
-    public string? company_service_id { get; set; }
+    public string? PKG_Id { get; set; }
+    private string? msg { get; set; }
+    private int ComServiceID { get; set; }
     private TourPackageServicesModel tourPackageServices = new TourPackageServicesModel();
     private List<TourPackageServicesModel> tourPackagesList = new List<TourPackageServicesModel>();
+    private List<TourCompanyServiceModel> tourCompanyServiceList = new List<TourCompanyServiceModel>();
+    private void SaveTourPackageService(){
+        tourPackageServices.Company_Service_ID = ComServiceID;
+        int i = TourPackageServicesDAL.SaveTPServices(tourPackageServices);
+        if(i==1){
+            msg = "Service saved";
+            GetTourPackageServices();
+        }
+        else{
+            msg = "Error";
+        }
+    }
+    protected override void OnInitialized()
+    {
+        LoadCompServices();
+        GetTourPackageServices();
+    }
+    private void LoadCompServices(){
+        tourCompanyServiceList = TourCompanyServiceDAL.GetTourCompanyServices();
+    }
+    private void SelectedCompServiceID(ChangeEventArgs e){
+        ComServiceID = int.Parse(e.Value.ToString());
+    }
+    private void GetTourPackageServices(){
+        tourPackagesList = TourPackageServicesDAL.GetTourPackageServices();
+    }
+    private void DeleteTourPackService(int id){
+        int i=TourPackageServicesDAL.DeleteTourPkgServices(id);
+        if (i == 1)
+        {
+            msg = "Service delete";
+            GetTourPackageServices();
+        }
+        else
+        {
+            msg = "Error";
+        }
+    }
 }

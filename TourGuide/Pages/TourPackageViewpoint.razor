@@ -3,8 +3,15 @@
 @using ClassLibraryModel
 <h3>TourPackageViewpoint</h3>
 <EditForm Model="tourpackageviewpoint" OnSubmit="SaveTourPackageViewpoint">
-    <label>Vp id</label>
-    <input type="text" @bind-value="tourpackageviewpoint.Vp_id"/>
+    @*<label>Vp id</label>
+    <input type="text" @bind-value="tourpackageviewpoint.Vp_id"/>*@
+    <label>View Point</label>
+    <select @onchange="SelectVPid">
+        @foreach (var item in viewPointsList)
+        {
+            <option value="@item.Vp_id">@item.VP_Name</option>
+        }
+    </select>@vpid
     <label>Field</label>
     <input type="text" @bind-value="tourpackageviewpoint.Field" />
 
@@ -21,6 +28,9 @@
         <tr>
             <td>@item.Vp_id</td>
             <td>@item.Field</td>
+            <td>
+                <button @onclick="(()=>DeleteTourPackageViewpoint(item.Tour_PKG_View_ID))">delete</button>
+            </td>
         </tr>
     }
 </table>
@@ -32,9 +42,11 @@
     private string? msg { get; set; }
     private TourPackageViewpointModel tourpackageviewpoint = new TourPackageViewpointModel();
     private List<TourPackageViewpointModel> tourpackageviewpointList = new List<TourPackageViewpointModel>();
+    private List<ViewPointModel> viewPointsList = new List<ViewPointModel>();
+    private int vpid { get; set; }
     private void SaveTourPackageViewpoint()
     {
-        tourpackageviewpoint.Vp_id = int.Parse(Vp_id);
+        tourpackageviewpoint.Vp_id = vpid;
         int i = TourPackageViewpointDAL.SaveTourPackageViewpoint(tourpackageviewpoint);
         if (i == 1)
         {
@@ -50,6 +62,7 @@
     protected override void OnInitialized()
     {
         GetTourPackageViewpoint();
+        LoadViewPoints();
     }
     private void GetTourPackageViewpoint()
     {
@@ -69,5 +82,11 @@
         {
             msg = "Error while Deleting TourPackageViewpoint";
         }
+    }
+    private void LoadViewPoints(){
+        viewPointsList = ViewPointDAL.GetViewpoints();
+    }
+    private void SelectVPid(ChangeEventArgs e){
+        vpid = int.Parse(e.Value.ToString());
     }
 }

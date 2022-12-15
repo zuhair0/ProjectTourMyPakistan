@@ -32,18 +32,20 @@ namespace ClassLibraryDAL
             while (sdr.Read())
             {
                 TourPackageServicesModel tps = new TourPackageServicesModel();
+                tps.PKG_Service_ID = int.Parse(sdr["PKG_Service_ID"].ToString());
                 tps.Company_Service_ID = int.Parse(sdr["Company_Service_ID"].ToString());
                 TourPKGServices.Add(tps);
             }
             con.Close();
             return TourPKGServices;
         }
-        public static int DeleteTourPkgServices(int Company_Service_ID)
+        public static int DeleteTourPkgServices(int PKG_Service_ID)
         {
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand("Sp_DeleteTourPkgService", con);
-            cmd.Parameters.AddWithValue("@Company_Service_ID", con);
+            SqlCommand cmd = new SqlCommand("Sp_DeleteTourPkgServices", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@PKG_Service_ID", PKG_Service_ID);
             int i = cmd.ExecuteNonQuery();
             con.Close();
             return i;
