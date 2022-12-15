@@ -357,3 +357,21 @@ CREATE PROC Sp_DeleteTourCompanyService
 AS BEGIN
 DELETE FROM Tour_Company_Service WHERE Company_Service_ID=@Company_Service_ID
 END
+
+create proc Sp_UserReg
+@Name varchar(20),
+@Mobile numeric,
+@Email varchar(30),
+@Address varchar(30),
+@UserName varchar(20),
+@Password varchar(20)
+AS BEGIN 
+INSERT INTO User_registration([Name],[Mobile],[Email],[Address],[UserName],[Password])
+VALUES(@Name,@Mobile,@Email,@Address,@UserName,@Password)
+END
+
+CREATE PROC Sp_GetRegUsers
+AS BEGIN
+SELECT * FROM User_registration
+END
+
