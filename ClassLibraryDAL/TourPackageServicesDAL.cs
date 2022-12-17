@@ -51,5 +51,4 @@ namespace ClassLibraryDAL
             return i;
         }
     }
-    
 }
