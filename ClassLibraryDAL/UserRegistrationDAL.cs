@@ -21,6 +21,7 @@ namespace ClassLibraryDAL
             cmd.Parameters.AddWithValue("@Address",urm.Address);
             cmd.Parameters.AddWithValue("@UserName", urm.UserName);
             cmd.Parameters.AddWithValue("@Password", urm.Password);
+            cmd.Parameters.AddWithValue("@Userrole", urm.Userrole);
             int i = cmd.ExecuteNonQuery();
             return i;
         }

@@ -2,12 +2,18 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using TourGuide.Data;
 using ClassLibraryServices;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using BlazorServerAuthenticationAndAuthorization.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<ProtectedSessionStorage>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<UserAccountService>();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<TourGuidService>();
 builder.Services.AddHttpClient<ITourGuidService, TourGuidService>(c =>

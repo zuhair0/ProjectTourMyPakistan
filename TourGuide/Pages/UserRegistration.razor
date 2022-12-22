@@ -1,6 +1,9 @@
 ﻿@page "/userreg"
 @using ClassLibraryDAL
 @using ClassLibraryModel
+<button>
+    <a href="login">Back</a>
+</button>
 <h3 class="text-center">Register User</h3>
 <EditForm Model="userRegistration" OnSubmit="SaveUser">
     <div class="row">
@@ -22,7 +25,6 @@
         <input type="password" @bind-value="userRegistration.Password" required/>
         <button class="btn btn-outline-success" type="submit">SAVE</button>
     </div>
-    
 </EditForm>
 @msg
 <table class="table table-bordered">

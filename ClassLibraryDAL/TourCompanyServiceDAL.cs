@@ -15,6 +15,7 @@ namespace ClassLibraryDAL
             con.Open();
             SqlCommand cmd = new SqlCommand("Sp_SaveTourCompanyService", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Company_id", tcsm.Company_id);
             cmd.Parameters.AddWithValue("@Category_ID",tcsm.Category_ID);
             cmd.Parameters.AddWithValue("@Sub_Category_ID",tcsm.Sub_Category_ID);
             cmd.Parameters.AddWithValue("@SD_ID",tcsm.SD_ID);
@@ -28,12 +29,36 @@ namespace ClassLibraryDAL
             con.Open();
             SqlCommand cmd = new SqlCommand("Sp_GetTourCompanyService", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+           // cmd.Parameters.AddWithValue("@Company_id", id);
             SqlDataReader reader=cmd.ExecuteReader();
             List<TourCompanyServiceModel> tourCompanyServicesList = new List<TourCompanyServiceModel>();
             while (reader.Read())
             {
                 TourCompanyServiceModel tourCompany = new TourCompanyServiceModel();
                 tourCompany.Company_Service_ID = int.Parse(reader["Company_Service_ID"].ToString());
+                tourCompany.Company_id = int.Parse(reader["Company_id"].ToString());
+                tourCompany.Category_ID = int.Parse(reader["Category_ID"].ToString());
+                tourCompany.Sub_Category_ID = int.Parse(reader["Sub_Category_ID"].ToString());
+                tourCompany.SD_ID = int.Parse(reader["SD_ID"].ToString());
+                tourCompanyServicesList.Add(tourCompany);
+            }
+            con.Close();
+            return tourCompanyServicesList;
+        }
+        public static List<TourCompanyServiceModel> GetTourCompanyService(int id)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_GetServiceByCompanyID", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Company_id", id);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<TourCompanyServiceModel> tourCompanyServicesList = new List<TourCompanyServiceModel>();
+            while (reader.Read())
+            {
+                TourCompanyServiceModel tourCompany = new TourCompanyServiceModel();
+                tourCompany.Company_Service_ID = int.Parse(reader["Company_Service_ID"].ToString());
+                tourCompany.Company_id = int.Parse(reader["Company_id"].ToString());
                 tourCompany.Category_ID = int.Parse(reader["Category_ID"].ToString());
                 tourCompany.Sub_Category_ID = int.Parse(reader["Sub_Category_ID"].ToString());
                 tourCompany.SD_ID = int.Parse(reader["SD_ID"].ToString());

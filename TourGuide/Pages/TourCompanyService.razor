@@ -1,4 +1,4 @@
-﻿@page "/tourcompanyservice"
+﻿@page "/tourcompanyservice/{Company_id}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
 <h3>TourCompanyService</h3>
@@ -51,8 +51,8 @@
     }*@
     <table class="table table-bordered">
         <thead>
-        <th>Service Title</th>
-        <th>Action</th>
+            <th>Service Title</th>
+            <th>Action</th>
         </thead>
         @foreach (var item in serviceDetailsList)
         {
@@ -92,6 +92,8 @@
     }
 </table>
 @code {
+    [Parameter]
+    public string? Company_id { get; set; }
     private List<string> selecteddetails = new List<string>();
     private string? ChecKedItems { get; set; }
     private string? msg {get;set;}
@@ -111,6 +113,7 @@
         tourCompanyService.Category_ID = servicecategory;
         tourCompanyService.Sub_Category_ID = SubCatID;
         tourCompanyService.SD_ID = ServiceDetailsID;
+        tourCompanyService.Company_id = int.Parse(Company_id);
         int i = TourCompanyServiceDAL.SaveTourCompanyService(tourCompanyService);
         if(i==1){
             msg = "Saved Succefulylly";
@@ -128,7 +131,7 @@
         GetTourCompanyServices();
     }
     private void GetTourCompanyServices(){
-        tourCompanyServicesList = TourCompanyServiceDAL.GetTourCompanyServices();
+        tourCompanyServicesList = TourCompanyServiceDAL.GetTourCompanyService(int.Parse(Company_id));
     }
 
     private void DeleteTourCompanyservice(int id){
