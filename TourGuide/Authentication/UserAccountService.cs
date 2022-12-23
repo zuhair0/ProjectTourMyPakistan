@@ -20,7 +20,7 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
                 UserAccount _user = new UserAccount();
                 _user.UserName = dr["UserName"].ToString();
                 _user.Password = dr["Password"].ToString();
-                _user.Role = "Administrator";
+                _user.Role = dr["UserRole"].ToString();
                 _users.Add(_user);
             }
             con.Close();

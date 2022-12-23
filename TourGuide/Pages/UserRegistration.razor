@@ -1,4 +1,4 @@
-﻿@page "/userreg"
+﻿@page "/registration/{Role}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
 <button>
@@ -49,11 +49,13 @@
     }
 </table>
 @code {
+    [Parameter]
+    public string? Role { get; set; }
     private string? msg { get; set; }
     private UserRegistrationModel userRegistration = new UserRegistrationModel();
     private List<UserRegistrationModel> usersList = new List<UserRegistrationModel>();
     private void SaveUser(){
-        userRegistration.Userrole = "User";
+        userRegistration.Userrole = Role;
         int i = UserRegistrationDAL.SaveUser(userRegistration);
         if(i==2){
             msg = "User Added Succesfully";
