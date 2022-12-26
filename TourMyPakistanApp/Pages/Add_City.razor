@@ -1,41 +1,46 @@
 ﻿@page "/addcity"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3 class="text-center">ADD CITY INFORMATION</h3>
-<EditForm Model="tourismModel" OnSubmit="SaveCity">
-    <div class="row">
-        <input type="text" @bind-value="tourismModel.City_name" placeholder="City Name..." class="col-5" required/>
-        <input type="number" @bind-value="tourismModel.City_code" placeholder="City Code..." class="col-3" required/>
-        <button type="submit" class="btn btn-primary col-2">SAVE</button>
-    </div>
-</EditForm>
-<p style="color:red;">@msg</p>
+<link rel="stylesheet" href="/css/style.css" />
+<div class="frm">
+    <EditForm Model="tourismModel" OnSubmit="SaveCity">
+        <h2>Enter the City's Information</h2>
+        <div class="inner">
+            <label><b>City Name: </b> </label><input type="text" @bind-value="tourismModel.City_name" placeholder="City Name..." required /><br />
+            <label><b>City Code: </b> </label><input type="number" @bind-value="tourismModel.City_code" required /><br />
+            <button type="submit" class="btn btn-primary col-2">SAVE</button>
+        </div>
+    </EditForm>
+    <h4 style="color:red;">@msg</h4>
+</div>
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-5">City Name</th>
+                <th class="col-2">City Code</th>
+                <th class="col-2">Action</th>
+                <th class="col-3">More...</th>
+            </tr>
+        </thead>
+        @foreach (var item in tourism_model)
+        {
+            <tr class="row">
+                <td class="col-5">@item.City_name</td>
+                <td class="col-2">@item.City_code</td>
+                <td class="col-2">
+                    <button @onclick="(()=>DeleteCity(item.City_code))" class="btn btn-outline-danger">
+                        DELETE
+                    </button>
+                </td>
+                <td class="col-3">
+                    <a href="addviewpoint/@item.City_code" class="btn btn-outline-dark">Add View Point</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-5">City Name</th>
-            <th class="col-2">City Code</th>
-            <th class="col-2">Action</th>
-            <th class="col-3">More...</th>
-        </tr>
-    </thead>
-    @foreach (var item in tourism_model)
-    {
-        <tr class="row">
-            <td class="col-5">@item.City_name</td>
-            <td class="col-2">@item.City_code</td>
-            <td class="col-2">
-                <button @onclick="(()=>DeleteCity(item.City_code))" class="btn btn-outline-danger">
-                    DELETE
-                </button>
-            </td>
-            <td class="col-3">
-                <a href="addviewpoint/@item.City_code" class="btn btn-outline-dark">Add View Point</a>
-            </td>
-        </tr>
-    }
-</table>
 
 
 

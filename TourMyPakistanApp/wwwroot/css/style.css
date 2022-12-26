@@ -1,0 +1,45 @@
+/*HOME PAGE*/
+body{
+    margin:0;
+    padding:0;
+    background-image:linear-gradient(rgba(255,255,255,0.4),rgba(255,255,255,0.4)),url(background.jpg);
+    background-size:cover;
+}
+
+.banner{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.banner h3{
+    margin-top:20%;
+    font-size:55px;
+    font-family:Pristina;
+}
+/*------------------*/
+.frm {
+    margin-top: 2%;
+    background: lightgray;
+    margin-left: 30%;
+    padding: 17px 32px;
+    width: 500px;
+    height: auto;
+    border-radius: 15px;
+}
+.frm input {
+    background:white;
+    margin:5px 9px;
+    padding-left:4px;
+    padding-right:55px;
+    border-style:none;
+}
+.frm button{
+    margin-left:40%;
+}
+.tble{
+    margin-top:15px;
+    background:lightgray;
+    margin-left:15px;
+    margin-right:15px;
+    color:white;
+}

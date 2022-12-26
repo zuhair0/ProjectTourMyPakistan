@@ -1,7 +1,9 @@
 ﻿@page "/addviewpoint/{cid}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
+<link rel="stylesheet" href="/css/style.css" />
 <h3 class="text-center">ADD VIEW POINT INFORMATION</h3>
+
 <EditForm Model="viewPointModel" OnSubmit="SaveViewpoint">
     <div class="row">
         <input type="text" @bind-value="viewPointModel.VP_Name" placeholder="Viewpoint's Name..." class="col-3" required/>
