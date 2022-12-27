@@ -18,6 +18,7 @@ namespace ClassLibraryDAL
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Vp_id", tcvm.Vp_id);
             cmd.Parameters.AddWithValue("@Field",tcvm.Field);
+            cmd.Parameters.AddWithValue("@PKG_Id", tcvm.PKG_Id);
             int i = cmd.ExecuteNonQuery();
             con.Close();
             return i;
@@ -36,6 +37,28 @@ namespace ClassLibraryDAL
                 TourPackageViewpointModel viewpointModel = new TourPackageViewpointModel();
                 viewpointModel.Tour_PKG_View_ID = int.Parse(reader["Tour_PKG_View_ID"].ToString());
                 viewpointModel.Vp_id = int.Parse(reader["Vp_id"].ToString());
+                viewpointModel.PKG_Id = int.Parse(reader["PKG_Id"].ToString());
+                viewpointModel.Field = reader["Field"].ToString();
+                TourPackageviewpointlist.Add(viewpointModel);
+            }
+            con.Close();
+            return TourPackageviewpointlist;
+        }
+        public static List<TourPackageViewpointModel> GetTourPackageViewpoint(int id)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_GetTourPackageViewpointByTPid", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@PKG_Id", id);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<TourPackageViewpointModel> TourPackageviewpointlist = new List<TourPackageViewpointModel>();
+            while (reader.Read())
+            {
+                TourPackageViewpointModel viewpointModel = new TourPackageViewpointModel();
+                viewpointModel.Tour_PKG_View_ID = int.Parse(reader["Tour_PKG_View_ID"].ToString());
+                viewpointModel.Vp_id = int.Parse(reader["Vp_id"].ToString());
+                viewpointModel.PKG_Id = int.Parse(reader["PKG_Id"].ToString());
                 viewpointModel.Field = reader["Field"].ToString();
                 TourPackageviewpointlist.Add(viewpointModel);
             }

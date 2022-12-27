@@ -1,4 +1,4 @@
-﻿@page "/tourguidereg"
+﻿@page "/tourguidereg/{user_fkid}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
 @using ClassLibraryServices
@@ -43,7 +43,7 @@
         <label class="col-2">Reg Date: </label>
         <input class="col-3" type="date" @bind-value="tourGuideRegistration.TG_registration_date" />
         <label class="col-2">Reg Time: </label>
-        <input class="col-3" type="time" @bind-value="tourGuideRegistration.TG_registration_time" />
+        <input class="col-3" type="datetime" @bind-value="tourGuideRegistration.TG_registration_time" />
         <button class="col-2 btn btn-success" type="submit">SAVE</button>
     </div><br /><p class="text-danger text-center">@msg</p>
     <hr />
@@ -79,6 +79,8 @@
 </table>
 
 @code {
+    [Parameter]
+    public string? user_fkid { get; set; }
     private string? msg { get; set; }
     private TourGuideRegistrationModel tourGuideRegistration = new TourGuideRegistrationModel();
     private List<TourGuideRegistrationModel> tourGuideRegistrationsList { get; set; } = new List<TourGuideRegistrationModel>();
@@ -86,6 +88,7 @@
     private string? city { get; set; }
     private void SaveTourGuideReg()
     {
+        tourGuideRegistration.TG_id = int.Parse(user_fkid);
         tourGuideRegistration.TG_city = city;
         int i = TourGuideRegistrationDAL.SaveTourGuideRegistration(tourGuideRegistration);
         if (i == 1)
@@ -98,14 +101,15 @@
             msg = "Error while saving Tour Guide";
         }
     }
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await APIGetTourGuides();
+        //await APIGetTourGuides();
+        GetTourGuides();
         LoadCities();
     }
     private void GetTourGuides()
     {
-        tourGuideRegistrationsList = TourGuideRegistrationDAL.GetTourGuideRegistrations();
+        tourGuideRegistrationsList = TourGuideRegistrationDAL.GetTourGuideRegistration(int.Parse(user_fkid));
     }
     private void DeleteTourGuide(int id)
     {

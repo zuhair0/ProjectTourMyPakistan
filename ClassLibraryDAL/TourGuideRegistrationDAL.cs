@@ -17,7 +17,7 @@ namespace ClassLibraryDAL
             con.Open();
             SqlCommand cmd = new SqlCommand("Sp_SaveTourGuideReg", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            //cmd.Parameters.AddWithValue("@TG_id",tgrm.TG_id);
+           // cmd.Parameters.AddWithValue("@TG_id",tgrm.TG_id);
             cmd.Parameters.AddWithValue("@TG_name",tgrm.TG_name);
             cmd.Parameters.AddWithValue("@TG_cnic",tgrm.TG_cnic);
             cmd.Parameters.AddWithValue("@TG_DOB", tgrm.TG_DOB);
@@ -42,6 +42,38 @@ namespace ClassLibraryDAL
             con.Open();
             SqlCommand cmd = new SqlCommand("Sp_GetTourGuides", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<TourGuideRegistrationModel> tourGuidesList = new List<TourGuideRegistrationModel>();
+            while (reader.Read())
+            {
+                TourGuideRegistrationModel tourGuide = new TourGuideRegistrationModel();
+                tourGuide.TG_id = int.Parse(reader["TG_id"].ToString());
+                tourGuide.TG_name = reader["TG_name"].ToString();
+                tourGuide.TG_cnic = int.Parse(reader["TG_cnic"].ToString());
+                tourGuide.TG_DOB = reader["TG_DOB"].ToString();
+                tourGuide.TG_Gender = reader["TG_Gender"].ToString();
+                tourGuide.TG_Mobile = int.Parse(reader["TG_Mobile"].ToString());
+                tourGuide.TG_Whatsapp = int.Parse(reader["TG_Whatsapp"].ToString());
+                tourGuide.TG_Landline = int.Parse(reader["TG_Landline"].ToString());
+                tourGuide.TG_city = reader["TG_city"].ToString();
+                tourGuide.TG_Sector = reader["TG_Sector"].ToString();
+                tourGuide.TG_Longitude = float.Parse(reader["TG_Longitude"].ToString());
+                tourGuide.TG_latitude = float.Parse(reader["TG_latitude"].ToString());
+                //tourGuide.TG_registration_date = reader["TG_registration_date"].ToString();
+                //tourGuide.TG_registration_time = reader["TG_registration_time"].ToString();
+                //tourGuide.TG_Registration_status = reader["TG_Registration_status"].ToString();
+                tourGuidesList.Add(tourGuide);
+            }
+            con.Close();
+            return tourGuidesList;
+        }
+        public static List<TourGuideRegistrationModel> GetTourGuideRegistration(int id)
+        {
+            SqlConnection con = DBHelper.GetConnection();
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Sp_GetTourGuidesById", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TG_id", id);
             SqlDataReader reader = cmd.ExecuteReader();
             List<TourGuideRegistrationModel> tourGuidesList = new List<TourGuideRegistrationModel>();
             while (reader.Read())

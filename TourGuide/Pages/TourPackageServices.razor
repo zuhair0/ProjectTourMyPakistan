@@ -39,6 +39,7 @@
     private List<TourCompanyServiceModel> tourCompanyServiceList = new List<TourCompanyServiceModel>();
     private void SaveTourPackageService(){
         tourPackageServices.Company_Service_ID = ComServiceID;
+        tourPackageServices.PKG_Id = int.Parse(PKG_Id);
         int i = TourPackageServicesDAL.SaveTPServices(tourPackageServices);
         if(i==1){
             msg = "Service saved";
@@ -60,7 +61,7 @@
         ComServiceID = int.Parse(e.Value.ToString());
     }
     private void GetTourPackageServices(){
-        tourPackagesList = TourPackageServicesDAL.GetTourPackageServices();
+        tourPackagesList = TourPackageServicesDAL.GetTourPackageService(int.Parse(PKG_Id));
     }
     private void DeleteTourPackService(int id){
         int i=TourPackageServicesDAL.DeleteTourPkgServices(id);

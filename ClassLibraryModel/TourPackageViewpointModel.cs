@@ -8,6 +8,7 @@ namespace ClassLibraryModel
 {
     public class TourPackageViewpointModel
     {
+        public int PKG_Id { get; set; }
         public int Tour_PKG_View_ID { get; set; }
         public int Vp_id { get; set; }
         public string? Field { get; set; }

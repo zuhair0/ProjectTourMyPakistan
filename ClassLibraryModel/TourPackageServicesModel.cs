@@ -9,6 +9,7 @@ namespace ClassLibraryModel
 {
     public class TourPackageServicesModel
     {
+        public int PKG_Id { get; set; }
         public int PKG_Service_ID { get; set; }
         public int Company_Service_ID { get; set; }
     }

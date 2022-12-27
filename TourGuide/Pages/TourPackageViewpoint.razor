@@ -1,4 +1,4 @@
-﻿@page "/tourPackageViewpoint/{Vp_id}"
+﻿@page "/tourPackageViewpoint/{PKG_Id}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
 <h3>TourPackageViewpoint</h3>
@@ -38,7 +38,7 @@
 
 @code {
     [Parameter]
-    public string? Vp_id { get; set; }
+    public string? PKG_Id { get; set; }
     private string? msg { get; set; }
     private TourPackageViewpointModel tourpackageviewpoint = new TourPackageViewpointModel();
     private List<TourPackageViewpointModel> tourpackageviewpointList = new List<TourPackageViewpointModel>();
@@ -46,6 +46,7 @@
     private int vpid { get; set; }
     private void SaveTourPackageViewpoint()
     {
+        tourpackageviewpoint.PKG_Id = int.Parse(PKG_Id);
         tourpackageviewpoint.Vp_id = vpid;
         int i = TourPackageViewpointDAL.SaveTourPackageViewpoint(tourpackageviewpoint);
         if (i == 1)
@@ -66,7 +67,7 @@
     }
     private void GetTourPackageViewpoint()
     {
-        tourpackageviewpointList = TourPackageViewpointDAL.GetTourPackageViewpoints();
+        tourpackageviewpointList = TourPackageViewpointDAL.GetTourPackageViewpoint(int.Parse(PKG_Id));
 
 
     }
