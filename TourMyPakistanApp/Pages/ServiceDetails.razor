@@ -1,49 +1,56 @@
 ﻿@page "/addservicedetails/{sub_cat_id}"
 @*parent child communiction in blazor server6.0*@
+<link rel="stylesheet" href="/css/style.css" />
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3 class="text-center">SERVICE #@sub_cat_id DETAILS</h3>
-<EditForm Model="serviceDetails" OnSubmit="SaveServiceDetails">
-    <div class="row">
-        <label class="col-3">Service Title: </label>
-        <input class="col-5" type="text" @bind-value="serviceDetails.SD_Title" placeholder="Title..." required/>
-    </div>
-    <hr />
-    <div class="row">
-        <label class="col-3">Price: (PKR) </label>
-        <input class="col-2" type="number" @bind-value="serviceDetails.SD_Price" placeholder="Price (PKR)" required />
-        <label class="col-2">Quantity: </label>
-        <input class="col-1" type="number" @bind-value="serviceDetails.SD_Quantity" placeholder="Quantity..." required />
-        <label class="col-2">Unit: </label>
-        <input class="col-1" type="number" @bind-value="serviceDetails.SD_Unit" placeholder="Unit..." required />
-        <button type="submit" class="btn btn-primary col-1">SAVE</button>
-    </div><hr />
-    
-</EditForm>
+
+<div class="lngfrm">
+    <h3 class="text-center">SERVICE #@sub_cat_id DETAILS</h3>
+    <EditForm Model="serviceDetails" OnSubmit="SaveServiceDetails">
+        <div class="row">
+            <label class="col-3">Service Title: </label>
+            <input class="col-5" type="text" @bind-value="serviceDetails.SD_Title" placeholder="Title..." required />
+        </div>
+        <hr />
+        <div class="row">
+            <label class="col-3">Price: (PKR) </label>
+            <input class="col-2" type="number" @bind-value="serviceDetails.SD_Price" placeholder="Price (PKR)" required />
+            <label class="col-2">Quantity: </label>
+            <input class="col-1" type="number" @bind-value="serviceDetails.SD_Quantity" placeholder="Quantity..." required />
+            <label class="col-2">Unit: </label>
+            <input class="col-1" type="number" @bind-value="serviceDetails.SD_Unit" placeholder="Unit..." required />
+            <button type="submit" class="btn btn-success col-1">SAVE</button>
+        </div><hr />
+
+    </EditForm>
+</div>
 <p class="text-danger">@msg</p>
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-4">TITLE</th>
-            <th class="col-2">PRICE (PKR)</th>
-            <th class="col-2">QTY</th>
-            <th class="col-2">UNIT</th>
-            <th class="col-2">ACTION</th>
-        </tr>
-    </thead>
-    @foreach (var item in serviceDetailsList)
-    {
-        <tr class="row">
-            <td class="col-4">@item.SD_Title</td>
-            <td class="col-2">@item.SD_Price</td>
-            <td class="col-2">@item.SD_Quantity</td>
-            <td class="col-2">@item.SD_Unit</td>
-            <td class="col-2">
-                <button @onclick="(()=>DeleteServiceSubCategory(item.SD_ID))" class="btn btn-outline-danger">DELETE</button>
-            </td>
-        </tr>
-    }
-</table>
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-4">TITLE</th>
+                <th class="col-2">PRICE (PKR)</th>
+                <th class="col-2">QTY</th>
+                <th class="col-2">UNIT</th>
+                <th class="col-2">ACTION</th>
+            </tr>
+        </thead>
+        @foreach (var item in serviceDetailsList)
+        {
+            <tr class="row">
+                <td class="col-4">@item.SD_Title</td>
+                <td class="col-2">@item.SD_Price</td>
+                <td class="col-2">@item.SD_Quantity</td>
+                <td class="col-2">@item.SD_Unit</td>
+                <td class="col-2">
+                    <button @onclick="(()=>DeleteServiceSubCategory(item.SD_ID))" class="btn btn-outline-danger">DELETE</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
 @code {
     [Parameter]
     public string? sub_cat_id { get; set; }

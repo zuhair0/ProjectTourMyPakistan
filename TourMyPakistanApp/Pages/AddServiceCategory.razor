@@ -1,41 +1,49 @@
 ﻿@page "/addservicecategory"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3 class="text-center">ADD A SERVICE CATEGORY</h3><br />
-<EditForm Model="serviceCategoryModel" OnSubmit="SaveServiceCategory">
-    <div class="row">
-        <input type="text" @bind-value="serviceCategoryModel.Cat_Type" placeholder="Cat. Type..." class="col-5" required />
-        <input type="text" @bind-value="serviceCategoryModel.Cat_Title" placeholder="Cat. Title..." class="col-5" required />
-        <button type="submit" class="btn btn-primary col-2">SAVE</button>
-    </div>
-</EditForm>
+<link rel="stylesheet" href="/css/style.css" />
+
+
+<div class="frm">
+    <h3 class="text-center">ADD A SERVICE CATEGORY</h3><br />
+    <EditForm Model="serviceCategoryModel" OnSubmit="SaveServiceCategory">
+        <div class="row">
+            <input type="text" @bind-value="serviceCategoryModel.Cat_Type" placeholder="Cat. Type..." class="col-5" required />
+            <input type="text" @bind-value="serviceCategoryModel.Cat_Title" placeholder="Cat. Title..." class="col-5" required />
+            <button type="submit" class="btn btn-success col-2">SAVE</button>
+        </div>
+    </EditForm>
+</div>
 <p class="text-danger">@msg</p>
 <h3>SERVICE CATEGORY INFORMATION</h3>
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-4">TITLE</th>
-            <th class="col-3">TYPE</th>
-            <th class="col-2">Action</th>
-            <th class="col-3">More...</th>
-        </tr>
-    </thead>
-    @foreach (var item in serviceCategoriesList)
-    {
-        <tr class="row">
-            <td class="col-4">@item.Cat_Title</td>
-            <td class="col-3">@item.Cat_Type</td>
-            <td class="col-2">
-                <button @onclick="(()=>DeleteServiceCategory(item.Cat_ID))" class="btn btn-outline-danger">
-                    DELETE
-                </button>
-            </td>
-            <td class="col-3">
-                <a href="servicesubcat/@item.Cat_ID" class="btn btn-outline-primary">ADD A SUB-CATEGORY</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-4">TITLE</th>
+                <th class="col-3">TYPE</th>
+                <th class="col-2">Action</th>
+                <th class="col-3">More...</th>
+            </tr>
+        </thead>
+        @foreach (var item in serviceCategoriesList)
+        {
+            <tr class="row">
+                <td class="col-4">@item.Cat_Title</td>
+                <td class="col-3">@item.Cat_Type</td>
+                <td class="col-2">
+                    <button @onclick="(()=>DeleteServiceCategory(item.Cat_ID))" class="btn btn-outline-danger">
+                        DELETE
+                    </button>
+                </td>
+                <td class="col-3">
+                    <a href="servicesubcat/@item.Cat_ID" class="btn btn-outline-primary">ADD A SUB-CATEGORY</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
 @code {
     private string? msg { get; set; }
     private ServiceCategoryModel serviceCategoryModel = new ServiceCategoryModel();

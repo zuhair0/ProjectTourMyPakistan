@@ -2,47 +2,54 @@
 @using ClassLibraryDAL
 @using ClassLibraryModel
 <link rel="stylesheet" href="/css/style.css" />
-<h3 class="text-center">ADD VIEW POINT INFORMATION</h3>
 
-<EditForm Model="viewPointModel" OnSubmit="SaveViewpoint">
-    <div class="row">
-        <input type="text" @bind-value="viewPointModel.VP_Name" placeholder="Viewpoint's Name..." class="col-3" required/>
-        <input type="text" @bind-value="viewPointModel.Vp_detail_Eng" placeholder="Viewpoint's Detail (ENGLISH)" class="col-4" required />
-        <input type="text" @bind-value="viewPointModel.Vp_detail_Urdu" placeholder="Viewpoint's Detail (URDU)" class="col-4" required />
-        <button type="submit" class=" btn btn-danger col-1">SAVE</button>
-    </div>
-</EditForm>
+
+
+<div class="lngfrm">
+    <EditForm Model="viewPointModel" OnSubmit="SaveViewpoint">
+        <h3 class="text-center">ADD VIEW POINT INFORMATION</h3>
+        <div class="row">
+            <input type="text" @bind-value="viewPointModel.VP_Name" placeholder="Viewpoint's Name..." class="col-3" required />
+            <input type="text" @bind-value="viewPointModel.Vp_detail_Eng" placeholder="Viewpoint's Detail (ENGLISH)" class="col-4" required />
+            <input type="text" @bind-value="viewPointModel.Vp_detail_Urdu" placeholder="Viewpoint's Detail (URDU)" class="col-4" required />
+            <button type="submit" class=" btn btn-success col-1">SAVE</button>
+        </div>
+    </EditForm>
+</div>
 <p class="text-danger">@msg</p>
 <h4>VIEW POINT'S INFORMATION</h4>
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-2">NAME</th>
-            <th class="col-1">CODE</th>
-            <th class="col-3">DETAIL (ENGLISH)</th>
-            <th class="col-3">DETAIL (URDU)</th>
-            <th class="col-1">ACTION</th>
-            <th class="col-2">More...</th>
-        </tr>
-    </thead>
-    @foreach (var item in viewPointsList)
-    {
-        <tr class="row">
-            <td class="col-2">@item.VP_Name</td>
-            <td class="col-1">@item.City_id</td>
-            <td class="col-3">@item.Vp_detail_Eng</td>
-            <td class="col-3">@item.Vp_detail_Urdu</td>
-            <td class="col-1">
-                <button class="btn btn-outline-danger" @onclick="(()=>DeleteViewPoint(item.Vp_id))">
-                    DELETE
-                </button>
-            </td>
-            <td class="col-2">
-                <a href="addviewpointimage/@item.Vp_id" class="btn btn-outline-primary">ADD IMAGES</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-2">NAME</th>
+                <th class="col-1">CODE</th>
+                <th class="col-3">DETAIL (ENGLISH)</th>
+                <th class="col-3">DETAIL (URDU)</th>
+                <th class="col-1">ACTION</th>
+                <th class="col-2">More...</th>
+            </tr>
+        </thead>
+        @foreach (var item in viewPointsList)
+        {
+            <tr class="row">
+                <td class="col-2">@item.VP_Name</td>
+                <td class="col-1">@item.City_id</td>
+                <td class="col-3">@item.Vp_detail_Eng</td>
+                <td class="col-3">@item.Vp_detail_Urdu</td>
+                <td class="col-1">
+                    <button class="btn btn-outline-danger" @onclick="(()=>DeleteViewPoint(item.Vp_id))">
+                        DELETE
+                    </button>
+                </td>
+                <td class="col-2">
+                    <a href="addviewpointimage/@item.Vp_id" class="btn btn-outline-primary">ADD IMAGES</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
 
 
 
