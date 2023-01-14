@@ -1,36 +1,43 @@
 ﻿@page "/servicesubcat/{catid}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<h3 class="text-center">SERVICE#@catid - SUB-CATEGORY</h3>
-<EditForm Model="serviceSubCategoryModel" OnSubmit="SaveServiceSubCategory">
-    <label>Sub-category Title: </label>
-    <input type="text" @bind-value="serviceSubCategoryModel.Sub_Cat_Title" placeholder="Title..." required/>
-    <button type="submit" class="btn btn-primary">SAVE</button>
-</EditForm>
+<link rel="stylesheet" href="/css/style.css" />
+
+<div class="frm">
+    <h3 class="text-center">SERVICE#@catid - SUB-CATEGORY</h3>
+    <EditForm Model="serviceSubCategoryModel" OnSubmit="SaveServiceSubCategory">
+        <label>Sub-category Title: </label>
+        <input type="text" @bind-value="serviceSubCategoryModel.Sub_Cat_Title" placeholder="Title..." required />
+        <button type="submit" class="btn btn-primary">SAVE</button>
+    </EditForm>
+</div>
 <p>@msg</p>
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-2">ID</th>
-            <th class="col-5">TITLE</th>
-            <th class="col-2">ACTION</th>
-            <th class="col-3">More...</th>
-        </tr>
-    </thead>
-    @foreach (var item in serviceSubCategoriesList)
-    {
-        <tr class="row">
-            <td class="col-2">@item.Cat_ID</td>
-            <td class="col-5">@item.Sub_Cat_Title</td>
-            <td class="col-2">
-                <button @onclick="(()=>DeleteServiceSubCategory(item.Sub_cat_ID))" class="btn btn-outline-danger">DELETE</button>
-            </td>
-            <td class="col-3">
-                <a href="addservicedetails/@item.Cat_ID" class="btn btn-outline-primary">ADD DETAILS</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-2">ID</th>
+                <th class="col-5">TITLE</th>
+                <th class="col-2">ACTION</th>
+                <th class="col-3">More...</th>
+            </tr>
+        </thead>
+        @foreach (var item in serviceSubCategoriesList)
+        {
+            <tr class="row">
+                <td class="col-2">@item.Cat_ID</td>
+                <td class="col-5">@item.Sub_Cat_Title</td>
+                <td class="col-2">
+                    <button @onclick="(()=>DeleteServiceSubCategory(item.Sub_cat_ID))" class="btn btn-outline-danger">DELETE</button>
+                </td>
+                <td class="col-3">
+                    <a href="addservicedetails/@item.Cat_ID" class="btn btn-outline-primary">ADD DETAILS</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
 @code {
     [Parameter]
     public string? catid { get; set; }

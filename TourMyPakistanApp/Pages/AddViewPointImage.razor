@@ -2,39 +2,45 @@
 @using ClassLibraryDAL
 @using ClassLibraryModel
 <link rel="stylesheet" href="/css/style.css" />
-<h3 class="text-center">ADD VIEW POINT IMAGES</h3>
-<EditForm Model="viewPointImage" OnSubmit="SaveViewPointImage">
-    <div class="row">
-        <input class="col-4" type="text" @bind-value="viewPointImage.VP_image_url" placeholder="Image URL (https://)" required />
-        <input class="col-6" type="text" @bind-value="viewPointImage.Vp_detail_Eng" placeholder="Image Detail" required />
-        <button class="col-2 btn btn-primary" type="submit">Save</button>
-    </div>
-</EditForm>
+
+<div class="lngfrm">
+    <h3 class="text-center">ADD VIEW POINT IMAGES</h3>
+    <EditForm Model="viewPointImage" OnSubmit="SaveViewPointImage">
+        <div class="row">
+            <input class="col-4" type="text" @bind-value="viewPointImage.VP_image_url" placeholder="Image URL (https://)" required />
+            <input class="col-6" type="text" @bind-value="viewPointImage.Vp_detail_Eng" placeholder="Image Detail" required />
+            <button class="col-2 btn btn-success" type="submit">SAVE</button>
+        </div>
+    </EditForm>
+</div>
 <p class="text-danger">@msg</p>
 <h3>IMAGES INFORMATION</h3>
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-1">ID</th>
-            <th class="col-5">URL</th>
-            <th class="col-5">DETAILS</th>
-            <th class="col-1">ACTION</th>
-        </tr>
-    </thead>
-    @foreach (var item in viewPointImagesList)
-    {
-        <tr class="row">
-            <td class="col-1">@item.VP_id</td>
-            <td class="col-5">@item.VP_image_url</td>
-            <td class="col-5">@item.Vp_detail_Eng</td>
-            <td class="col-1">
-                <button class="btn btn-outline-danger" @onclick="(()=>DeleteViewpointImage(item.VP_id))">
-                    DELETE
-                </button>
-            </td>
-        </tr>
-    }
-</table>
+
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-1">ID</th>
+                <th class="col-5">URL</th>
+                <th class="col-5">DETAILS</th>
+                <th class="col-1">ACTION</th>
+            </tr>
+        </thead>
+        @foreach (var item in viewPointImagesList)
+        {
+            <tr class="row">
+                <td class="col-1">@item.VP_id</td>
+                <td class="col-5">@item.VP_image_url</td>
+                <td class="col-5">@item.Vp_detail_Eng</td>
+                <td class="col-1">
+                    <button class="btn btn-outline-danger" @onclick="(()=>DeleteViewpointImage(item.VP_id))">
+                        DELETE
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 @code {
     [Parameter]
     public string? vpid { get; set; }
