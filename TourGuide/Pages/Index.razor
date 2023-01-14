@@ -1,28 +1,21 @@
 ﻿@page "/"
 @inject IJSRuntime js
+<link rel="stylesheet" href="/css/style.css" />
 <PageTitle>Index</PageTitle>
 
 <AuthorizeView>
-    <Authorized>
-        <h1>Hello, @context.User.Identity.Name!</h1>
-        <h1>Session @SessionIdProvider.SessionId</h1>
+    <Authorized>        
+        <div class="banner">
+            <h3>Hello, @context.User.Identity.Name!</h3>
+        </div>
     </Authorized>
     <NotAuthorized>
-        <h1>Hello Guest</h1>
+        <div class="banner">
+            <h3>Welcome Guest, please <span style="background:green"><a href="login" style="text-decoration:none; color:white;">SIGN-IN/REGISTER</a></span></h3>
+        </div>
     </NotAuthorized>
 </AuthorizeView>
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
-<AuthorizeView>
-    <Authorized>
-        <br /><br />
-        <button class="btn btn-outline-primary" @onclick="DisplayGreetingAlert">Display Greeting Alert</button>
-    </Authorized>
-</AuthorizeView>
 
 @code {
     [Inject]

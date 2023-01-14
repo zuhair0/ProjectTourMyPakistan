@@ -3,80 +3,86 @@
 @using ClassLibraryModel
 @using ClassLibraryServices
 @inject ITourGuidService tourGuidService
+<link rel="stylesheet" href="/css/style.css" />
+<div class="lngfrm">
+    <h3 class="text-center"><b>Tour Guide Registration</b></h3>
+    <EditForm Model="tourGuideRegistration" OnSubmit="SaveTourGuideReg">
+        <div class="row">
+            <label class="col-1">Name: </label>
+            <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_name" required />
+            <label class="col-1">CNIC# </label>
+            <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_cnic" required />
+            <label class="col-1">D.O.B: </label>
+            <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_DOB" required />
+            <label class="col-1">Gender: </label>
+            <input class="col-1" type="text" @bind-value="tourGuideRegistration.TG_Gender" required />
+        </div>
+        <div class="row">
+            <label class="col-1">Mobile: </label>
+            <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Mobile" />
+            <label class="col-1">WhatsApp</label>
+            <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Whatsapp" />
+            <label class="col-1">Landline: </label>
+            <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Landline" />
+            <label class="col-1">City</label>
+            <select class="col-1" @onchange="SelectedCity">
+                @foreach (var item in CityList)
+                {
+                    <option value="@item.City_name">@item.City_name</option>
+                }
+            </select><br /> <p>You selected: <span class="text-danger">@city</span></p><br />
+        </div>
+        <div class="row">
+            <label class="col-1">Sector: </label>
+            <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_Sector" />
+            <label class="col-1">Longitude: </label>
+            <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Longitude" />
+            <label class="col-1">Latitude: </label>
+            <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_latitude" />
+        </div><br />
+        <div class="row">
+            <label class="col-2">Reg Date: </label>
+            <input class="col-3" type="date" @bind-value="tourGuideRegistration.TG_registration_date" />
+            <label class="col-2">Reg Time: </label>
+            <input class="col-3" type="datetime" @bind-value="tourGuideRegistration.TG_registration_time" />
+            <button class="col-2 btn btn-success" type="submit">SAVE</button>
+        </div><br /><p class="text-danger text-center">@msg</p>
+        <hr />
+    </EditForm>
+</div>
+<div class="tble">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="row">
+                <th class="col-3">Name</th>
+                <th class="col-1">Gender</th>
+                <th class="col-2">DOB</th>
+                <th class="col-2">Contact</th>
+                <th class="col-2">Action</th>
+                <th class="col-2">More</th>
+            </tr>
+        </thead>
+        @foreach (var item in tourGuideRegistrationsList)
+        {
+            <tr class="row">
+                <td class="col-3">@item.TG_name</td>
+                <td class="col-1">@item.TG_Gender</td>
+                <td class="col-2">@item.TG_DOB</td>
+                <td class="col-2">@item.TG_Mobile</td>
+                <td class="col-2">
+                    <button class="btn btn-outline-danger" @onclick="(()=>DeleteTourGuide(item.TG_id))">
+                        DELETE
+                    </button>
+                </td>
+                <td class="col-2">
+                    <a class="btn btn-outline-primary" href="tourcompanyreg/@item.TG_id">Add Company</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 
-<h3 class="text-center">Tour Guide Registration</h3>
-<EditForm Model="tourGuideRegistration" OnSubmit="SaveTourGuideReg">
-    <div class="row">
-        <label class="col-1">Name: </label>
-        <input class="col-3" type="text" @bind-value="tourGuideRegistration.TG_name" required />
-        <label class="col-1">CNIC# </label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_cnic" required />
-        <label class="col-1">D.O.B: </label>
-        <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_DOB" required />
-        <label class="col-1">Gender: </label>
-        <input class="col-1" type="text" @bind-value="tourGuideRegistration.TG_Gender" required />
-    </div><br />
-    <div class="row">
-        <label class="col-1">Mobile: </label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Mobile" /><br />
-        <label class="col-1">WhatsApp</label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Whatsapp" /><br />
-        <label class="col-1">Landline: </label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Landline" /><br />
-        <label class="col-1">City</label>
-        <select class="col-2" @onchange="SelectedCity">
-            @foreach (var item in CityList)
-            {
-                <option value="@item.City_name">@item.City_name</option>
-            }
-        </select><br /> <p>You selected: <span class="text-danger">@city</span></p><br />
-    </div>
-    <div class="row">
-        <label class="col-1">Sector: </label>
-        <input class="col-2" type="text" @bind-value="tourGuideRegistration.TG_Sector" />
-        <label class="col-1">Longitude: </label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_Longitude" />
-        <label class="col-1">Latitude: </label>
-        <input class="col-2" type="number" @bind-value="tourGuideRegistration.TG_latitude" />
-    </div><br />
-    <div class="row">
-        <label class="col-2">Reg Date: </label>
-        <input class="col-3" type="date" @bind-value="tourGuideRegistration.TG_registration_date" />
-        <label class="col-2">Reg Time: </label>
-        <input class="col-3" type="datetime" @bind-value="tourGuideRegistration.TG_registration_time" />
-        <button class="col-2 btn btn-success" type="submit">SAVE</button>
-    </div><br /><p class="text-danger text-center">@msg</p>
-    <hr />
-</EditForm>
-<table class="table table-bordered">
-    <thead>
-        <tr class="row">
-            <th class="col-3">Name</th>
-            <th class="col-1">Gender</th>
-            <th class="col-2">DOB</th>
-            <th class="col-2">Contact</th>
-            <th class="col-2">Action</th>
-            <th class="col-2">More</th>
-        </tr>
-    </thead>
-    @foreach (var item in tourGuideRegistrationsList)
-    {
-        <tr class="row">
-            <td class="col-3">@item.TG_name</td>
-            <td class="col-1">@item.TG_Gender</td>
-            <td class="col-2">@item.TG_DOB</td>
-            <td class="col-2">@item.TG_Mobile</td>
-            <td class="col-2">
-                <button class="btn btn-outline-danger" @onclick="(()=>DeleteTourGuide(item.TG_id))">
-                    DELETE
-                </button>
-            </td>
-            <td class="col-2">
-                <a class="btn btn-outline-primary" href="tourcompanyreg/@item.TG_id">Add Company</a>
-            </td>
-        </tr>
-    }
-</table>
+
 
 @code {
     [Parameter]

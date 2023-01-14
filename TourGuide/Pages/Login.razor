@@ -4,36 +4,38 @@
 @inject IJSRuntime js
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
-
-<div class="row">
+<link rel="stylesheet" href="/css/style.css" />
+<div class="row" style="margin-top:5%;">
     <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
         <div class="mb-3 text-center">
             <h3>Login</h3>
         </div>
         <div class="mb-3">
-            <label>User Name</label>
-            <input  @bind="model.UserName" class="form-control" placeholder="User Name"/>
+            <label><b>User-Name: </b></label>
+            <input  @bind="model.UserName" class="form-control" placeholder="User Name" required/>
         </div>
         <div class="mb-3">
-            <label>Password</label>
-            <input type="password" @bind="model.Password" class="form-control" placeholder="Password" />
+            <label><b>Password: </b></label>
+            <input type="password" @bind="model.Password" class="form-control" placeholder="Password" required/>
         </div>
         <div class="mb-3 d-grid gap-2">
             <button @onclick="Authenticate" class="btn btn-primary">Login</button>
         </div>
-        <div class="mb-3 d-grid gap-2">
-            <button>
-                <a href="registration/User">SignUP as user</a>
-            </button>
+        <div class="row">
+            <div class="mb-3 d-grid gap-2 col-6">
+                <button class="btn btn-success">
+                    <a href="registration/User" style="text-decoration:none; color:white">Sign-up as User</a>
+                </button>
+            </div>
+            <div class="mb-3 d-grid gap-2 col-6">
+                <button class="btn btn-success">
+                    <a href="registration/Tourguide" style="text-decoration:none; color:white">Sign-up as Tour-Guide</a>
+                </button>
+            </div>
         </div>
-        <div class="mb-3 d-grid gap-2">
-            <button>
-                <a href="registration/Tourguide">SignUP as Tourguide</a>
-            </button>
-        </div>
+        
     </div>
 </div>
-
 @code {
     private class Model
     {

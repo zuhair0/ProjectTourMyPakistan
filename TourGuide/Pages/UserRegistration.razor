@@ -1,53 +1,38 @@
 ﻿@page "/registration/{Role}"
 @using ClassLibraryDAL
 @using ClassLibraryModel
-<button>
-    <a href="login">Back</a>
+<link rel="stylesheet" href="/css/style.css" />
+<button class="btn btn-success">
+    <a href="/login" style="text-decoration:none; color:white;">Back</a>
 </button>
-<h3 class="text-center">Register User</h3>
-<EditForm Model="userRegistration" OnSubmit="SaveUser">
-    <div class="row">
-        <label class="col-1">Name</label>
-        <input class="col-5"type="text" @bind-value="userRegistration.Name" required/>
-        <label class="col-1">Mobile</label>
-        <input class="col-5" type="number" @bind-value="userRegistration.Mobile" required/>
-    </div>
-    <div class="row">
-        <label class="col-1">Email</label>
-        <input class="col-5" type="email" @bind-value="userRegistration.Email" required />
-        <label class="col-1">Address</label>
-        <input class="col-5" type="text" @bind-value="userRegistration.Address" required />
-    </div>
-    <div >
-        <lable>User Name</lable>
-        <input type="text" @bind-value="userRegistration.UserName" required/>
-        <lable>Password</lable>
-        <input type="password" @bind-value="userRegistration.Password" required/>
-        <button class="btn btn-outline-success" type="submit">SAVE</button>
-    </div>
-</EditForm>
-@msg
-<table class="table table-bordered">
-    <thead>
-        <th>Name</th>
-        <th>Mobile</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>Action</th>
-    </thead>
-    @foreach (var item in usersList){
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Mobile</td>
-            <td>@item.Email</td>
-            <td>@item.Address</td>
-            <td>
-                <button @onclick="(()=>DeleteUser(item.ID))">Delete</button>
-            </td>
+<div class="lngfrm">
+    <h3 class="text-center"><b>REGISTER USER</b></h3>
+    <EditForm Model="userRegistration" OnSubmit="SaveUser">
+        <div class="row">
+            <label class="col-1">Name</label>
+            <input class="col-5" type="text" @bind-value="userRegistration.Name" placeholder="Name" required />
+            <label class="col-1">Mobile</label>
+            <input class="col-4" type="number" @bind-value="userRegistration.Mobile" placeholder="Mobile" required />
+        </div>
+        <div class="row">
+            <label class="col-1">Email</label>
+            <input class="col-5" type="email" @bind-value="userRegistration.Email" placeholder="Email Address" required />
+            <label class="col-1">Address</label>
+            <input class="col-4" type="text" @bind-value="userRegistration.Address" placeholder="Address" required />
+        </div><hr />
+        <div class="row">
+            <label class="col-2">User Name</label>
+            <input class="col-3"type="text" @bind-value="userRegistration.UserName" placeholder="Username" required />
+            <label class="col-2">Password</label>
+            <input class="col-3" type="password" @bind-value="userRegistration.Password" placeholder="Password" required />           
+        </div><hr />
+        <button class="btn btn-success" style="margin-left:45%;" type="submit">SAVE</button>
+    </EditForm>
+</div>
 
-        </tr>
-    }
-</table>
+<p class="text-danger text-center">@msg</p>
+
+
 @code {
     [Parameter]
     public string? Role { get; set; }

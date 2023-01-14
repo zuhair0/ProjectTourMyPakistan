@@ -1,1 +1,75 @@
-﻿
+﻿/*HOME PAGE*/
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(bg.jpg);
+    background-size: cover;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .banner h3 {
+        margin-top: 20%;
+        font-size: 55px;
+        font-family: Segoe UI;
+    }
+/*------------------*/
+.frm {
+    margin-top: 2%;
+    background: lightgray;
+    margin-left: 30%;
+    padding: 17px 32px;
+    width: 500px;
+    height: auto;
+    border-radius: 15px;
+}
+
+    .frm input {
+        background: white;
+        margin: 5px 9px;
+        padding-left: 4px;
+        padding-right: 55px;
+        border-style: none;
+    }
+
+    .frm button {
+        margin-left: 40%;
+    }
+
+.tble {
+    margin-top: 5%;
+    margin-left: 35px;
+    margin-right: 35px;
+    color: white;
+}
+
+    .tble td {
+        font-weight: bold;
+    }
+
+    .tble th {
+        background: black;
+        color: white;
+        padding-left: 30px;
+    }
+
+.lngfrm {
+    background: lightgray;
+    width: 95%;
+    height: auto;
+    margin: 25px;
+    padding: 25px;
+    border-radius: 5%;
+}
+
+    .lngfrm input {
+        margin: 5px;
+    }
+
+    .lngfrm button {
+        margin: 0 auto;
+    }
