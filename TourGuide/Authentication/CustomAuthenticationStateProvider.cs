@@ -24,7 +24,8 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
                 var claimsPrinciple = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,UserSession.UserName),
-                    new Claim(ClaimTypes.Role,UserSession.Role)
+                    new Claim(ClaimTypes.Role,UserSession.Role) ,
+                    new Claim(ClaimTypes.SerialNumber,UserSession.user_fkid.ToString())
                 }, "CustomAuth"));
                 return await Task.FromResult(new AuthenticationState(claimsPrinciple));
             }
@@ -42,7 +43,8 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
                 claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimTypes.Name,userSession.UserName),
-                    new Claim(ClaimTypes.Role,userSession.Role)
+                    new Claim(ClaimTypes.Role,userSession.Role),
+                    new Claim(ClaimTypes.SerialNumber,userSession.user_fkid.ToString())
                 }));
             }
             else

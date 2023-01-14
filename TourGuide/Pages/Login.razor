@@ -54,7 +54,8 @@
         await customAuthStateProvider.UpdateAuthenticationState(new UserSession
             {
                 UserName = userAccount.UserName,
-                Role = userAccount.Role
+                Role = userAccount.Role,
+                user_fkid=userAccount.user_fkid
             });
         navManager.NavigateTo("/", true);
     }
