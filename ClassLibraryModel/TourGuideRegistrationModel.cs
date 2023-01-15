@@ -23,6 +23,7 @@ namespace ClassLibraryModel
         public DateTime TG_registration_date { get; set; }
         public DateTime TG_registration_time { get; set; }
         public bool TG_Registration_status {get;set;}
+        public string? idd { get; set; }
     }
 }
 //USE[Tourism]

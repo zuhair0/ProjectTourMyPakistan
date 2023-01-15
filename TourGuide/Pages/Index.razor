@@ -7,6 +7,8 @@
     <Authorized>        
         <div class="banner">
             <h3>Hello, @context.User.Identity.Name!</h3>
+            @*@SessionIdProvider.SessionId*@
+            @authenticationState.Id
         </div>
     </Authorized>
     <NotAuthorized>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using ClassLibraryModel;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Security.Claims;
 
@@ -8,6 +9,7 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
     {
         private readonly ProtectedSessionStorage _sessionStorage;
         private ClaimsPrincipal _anonymous=new ClaimsPrincipal(new ClaimsIdentity());
+        private TourGuideRegistrationModel TourGuide = new TourGuideRegistrationModel();
 
         public CustomAuthenticationStateProvider(ProtectedSessionStorage sessionStorage)
         {
@@ -27,6 +29,7 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
                     new Claim(ClaimTypes.Role,UserSession.Role) ,
                     new Claim(ClaimTypes.SerialNumber,UserSession.user_fkid.ToString())
                 }, "CustomAuth"));
+                TourGuide.idd = UserSession.user_fkid.ToString();
                 return await Task.FromResult(new AuthenticationState(claimsPrinciple));
             }
             catch

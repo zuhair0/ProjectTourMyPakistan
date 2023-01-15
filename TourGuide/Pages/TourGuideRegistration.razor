@@ -94,7 +94,8 @@
     private string? city { get; set; }
     private void SaveTourGuideReg()
     {
-        tourGuideRegistration.TG_id = int.Parse(user_fkid);
+        tourGuideRegistration.idd = user_fkid;
+        //tourGuideRegistration.TG_id = int.Parse(user_fkid);
         tourGuideRegistration.TG_city = city;
         int i = TourGuideRegistrationDAL.SaveTourGuideRegistration(tourGuideRegistration);
         if (i == 1)
@@ -116,7 +117,7 @@
     }
     private void GetTourGuides()
     {
-        tourGuideRegistrationsList = TourGuideRegistrationDAL.GetTourGuideRegistration(int.Parse(user_fkid));
+        tourGuideRegistrationsList = TourGuideRegistrationDAL.GetTourGuideRegistration(user_fkid);
     }
     private void DeleteTourGuide(int id)
     {

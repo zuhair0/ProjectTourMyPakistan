@@ -21,7 +21,7 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
                 _user.UserName = dr["UserName"].ToString();
                 _user.Password = dr["Password"].ToString();
                 _user.Role = dr["UserRole"].ToString();
-                //_user.user_fkid = int.Parse(dr["user_fkid"].ToString());
+                _user.user_fkid = int.Parse(dr["user_fkid"].ToString());
                 _users.Add(_user);
             }
             con.Close();
@@ -29,7 +29,7 @@ namespace BlazorServerAuthenticationAndAuthorization.Authentication
 
         public UserAccount? GetByUserName(string userName)
         {
-            return _users.FirstOrDefault(x => x.UserName == userName);
+            return _users.FirstOrDefault(x => x.UserName == userName) ;
         }
     }
 }

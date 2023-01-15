@@ -31,7 +31,8 @@ namespace ClassLibraryDAL
             cmd.Parameters.AddWithValue("@TG_latitude",tgrm.TG_latitude);
             cmd.Parameters.AddWithValue("@TG_registration_date",tgrm.TG_registration_date);
             cmd.Parameters.AddWithValue("@TG_registration_time",tgrm.TG_registration_time);
-           // cmd.Parameters.AddWithValue("@TG_Registration_status",tgrm.TG_Registration_status);
+            cmd.Parameters.AddWithValue("@idd", tgrm.idd);
+            // cmd.Parameters.AddWithValue("@TG_Registration_status",tgrm.TG_Registration_status);
             int i = cmd.ExecuteNonQuery();
             con.Close();
             return i;
@@ -59,6 +60,7 @@ namespace ClassLibraryDAL
                 tourGuide.TG_Sector = reader["TG_Sector"].ToString();
                 tourGuide.TG_Longitude = float.Parse(reader["TG_Longitude"].ToString());
                 tourGuide.TG_latitude = float.Parse(reader["TG_latitude"].ToString());
+                tourGuide.idd = reader["idd"].ToString();
                 //tourGuide.TG_registration_date = reader["TG_registration_date"].ToString();
                 //tourGuide.TG_registration_time = reader["TG_registration_time"].ToString();
                 //tourGuide.TG_Registration_status = reader["TG_Registration_status"].ToString();
@@ -67,13 +69,13 @@ namespace ClassLibraryDAL
             con.Close();
             return tourGuidesList;
         }
-        public static List<TourGuideRegistrationModel> GetTourGuideRegistration(int id)
+        public static List<TourGuideRegistrationModel> GetTourGuideRegistration(string id)
         {
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand("Sp_GetTourGuidesById", con);
+            SqlCommand cmd = new SqlCommand("Sp_GetTourGuidesByIdd", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@TG_id", id);
+            cmd.Parameters.AddWithValue("@idd",id);
             SqlDataReader reader = cmd.ExecuteReader();
             List<TourGuideRegistrationModel> tourGuidesList = new List<TourGuideRegistrationModel>();
             while (reader.Read())
@@ -91,6 +93,7 @@ namespace ClassLibraryDAL
                 tourGuide.TG_Sector = reader["TG_Sector"].ToString();
                 tourGuide.TG_Longitude = float.Parse(reader["TG_Longitude"].ToString());
                 tourGuide.TG_latitude = float.Parse(reader["TG_latitude"].ToString());
+                tourGuide.idd = reader["idd"].ToString();
                 //tourGuide.TG_registration_date = reader["TG_registration_date"].ToString();
                 //tourGuide.TG_registration_time = reader["TG_registration_time"].ToString();
                 //tourGuide.TG_Registration_status = reader["TG_Registration_status"].ToString();
