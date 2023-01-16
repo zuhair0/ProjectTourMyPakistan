@@ -17,7 +17,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav auth">
+            <div class="navbar-nav auth" style="margin-left:55%;">
                 <AuthorizeView Roles="User">
                     <Authorized>
                         <a class="nav-link active text-white" href="counter"><b>Counter</b></a>
@@ -31,6 +31,7 @@
                         <a class="nav-link active text-white" href="counter"><b>Counter</b></a>
                         <a class="nav-link active text-white" href="tourguidereg/2002"><b>Tour Guide Registration</b></a>
                         <a @onclick="Logout" href="javascript:void(0)" class="nav-link active text-white bg-danger">Logout</a>
+                        <p style="color:white; font-weight:bold; padding-left:32px; padding-top:5px;">Hello @context.User.Identity.Name!</p>
                     </Authorized>
                     <NotAuthorized>
                         

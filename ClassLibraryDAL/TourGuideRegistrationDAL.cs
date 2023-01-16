@@ -73,9 +73,9 @@ namespace ClassLibraryDAL
         {
             SqlConnection con = DBHelper.GetConnection();
             con.Open();
-            SqlCommand cmd = new SqlCommand("Sp_GetTourGuidesByIdd", con);
+            SqlCommand cmd = new SqlCommand("Sp_GetTourGuidesById", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@idd",id);
+            cmd.Parameters.AddWithValue("@TG_id",id);
             SqlDataReader reader = cmd.ExecuteReader();
             List<TourGuideRegistrationModel> tourGuidesList = new List<TourGuideRegistrationModel>();
             while (reader.Read())
