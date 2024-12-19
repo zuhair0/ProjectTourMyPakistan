@@ -4,13 +4,183 @@
 <link rel="stylesheet" href="/css/style.css" />
 
 <PageTitle>Tour My Pakistan</PageTitle>
-<div class="banner">
-    <h3>WELCOME TO TOUR MY PAKISTAN</h3>
-</div>
+@*<div class="banner">
+        <h3>WELCOME TO TOUR MY PAKISTAN</h3>
+    </div>*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour My Pakistan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body>
+    <PageTitle>Tour My Pakistan</PageTitle>
+
+    <!-- Banner Section -->
+    <div class="flex flex-col lg:flex-row h-screen">
+        <!-- Left Side: White Background with Text -->
+        <div class="flex flex-col justify-center bg-gray-100 px-6 py-32 lg:w-1/2">
+            <div class="max-w-xl text-left" style="margin-left:10%">
+                <h1 class="text-3xl font-extrabold sm:text-5xl text-gray-900">
+                    Welcome to the
+                    <strong class="block font-extrabold text-green-800 mt-3">Breathtaking Beauty of Pakistan</strong>
+                </h1>
+
+                <p class="mt-4 max-w-lg sm:text-xl/relaxed">
+                    Explore the heart of Asia with our expertly curated tours. Discover majestic landscapes, vibrant cultures, and a rich heritage that will captivate your senses. Experience breathtaking adventures, tailored journeys, and unforgettable memories. Immerse yourself in the wonders of nature, history, and traditions. Let us guide you to the hidden gems and iconic landmarks of this remarkable region. Start your journey today and create memories that last a lifetime.
+                </p>
+
+                <div class="mt-8 flex flex-wrap gap-4 text-center">
+                    <a href="#"
+                       class="block w-full rounded bg-green-700 duration-75 px-12 py-3 text-sm font-medium text-white shadow hover:bg-green-500 focus:outline-none focus:ring active:bg-green-600 sm:w-auto">
+                        Start Exploring
+                    </a>
+
+                    <a href="#"
+                       class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-green-800 shadow focus:outline-none focus:ring active:text-green-600 sm:w-auto">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Image -->
+        <div class="relative lg:w-1/2 bg-cover bg-center bg-no-repeat"
+             style="background-image: url('https://images.unsplash.com/photo-1609412489711-2f037d8f4c77?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); margin-top:1%; margin-right:3%; height:90%">
+            <div class="absolute inset-0 bg-black/25"></div>
+        </div>
+    </div>
+
+    @*<div>
+            <section class="relative bg-[url('https://www.natureadventureclub.pk/wp-content/uploads/2024/03/taobat.jpg')] bg-cover bg-center bg-no-repeat" style="background-image: url('https://www.natureadventureclub.pk/wp-content/uploads/2024/03/taobat.jpg')">
+                <div class="absolute inset-0 bg-white/75 sm:bg-transparent sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"></div>
+
+                <div class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8">
+                    <div class="max-w-xl text-left">
+                        <h1 class="text-3xl font-extrabold sm:text-5xl text-gray-900">
+                            Welcome to the
+
+                            <strong class="block font-extrabold text-green-800 mt-3">Breathtaking Beauty of Pakistan</strong>
+                        </h1>
+
+                        <p class="mt-4 max-w-lg sm:text-xl/relaxed">
+                            Explore the heart of Asia with our carefully curated tours. Discover majestic landscapes, vibrant cultures, and rich heritage.
+                        </p>
+
+                        <div class="mt-8 flex flex-wrap gap-4 text-center">
+                            <a href="#"
+                               class="block w-full rounded bg-green-700 duration-75 px-12 py-3 text-sm font-medium text-white shadow hover:bg-green-500 focus:outline-none focus:ring active:bg-green-600 sm:w-auto">
+                                Start Exploring
+                            </a>
+
+                            <a href="#"
+                               class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-green-800 shadow focus:outline-none focus:ring active:text-green-600 sm:w-auto">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>*@
+
+    <!-- About Section -->
+    <section>
+        <div class="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:h-screen lg:grid-cols-2">
+                <div class="relative z-10 lg:py-16">
+                    <div class="relative h-64 sm:h-80 lg:h-full">
+                        <img alt="Pakistan Scenery"
+                             src="https://images.unsplash.com/photo-1627894485229-ff2c619723e4?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                             @*src="https://images.unsplash.com/photo-1609412489711-2f037d8f4c77?q=80&w=3027&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" *@
+                             class="absolute inset-0 h-full w-full object-cover" />
+                    </div>
+                </div>
+
+                <div class="relative flex items-center bg-gray-100">
+                    <span class="hidden lg:absolute lg:inset-y-0 lg:-start-16 lg:block lg:w-16 lg:bg-gray-100"></span>
+
+                    <div class="p-8 sm:p-16 lg:p-24">
+                        <h2 class="text-2xl font-bold sm:text-3xl">
+                            Discover Pakistan
+                        </h2>
+
+                        <p class="mt-4 text-gray-600">
+                            "Tour My Pakistan" is your trusted companion for uncovering Pakistan's hidden gems. From the majestic snowy peaks in the north to the sun-kissed shores in the south, our platform ensures a seamless experience. We offer tailored itineraries, secure bookings, and expert guidance to make your journey unforgettable. Whether seeking adventure, culture, or relaxation, discover the beauty and diversity of Pakistan with ease and confidence. Start your journey with us today.
+                        </p>
+
+                        <a href="#"
+                           class="mt-8 inline-block rounded border border-green-600 bg-green-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="bg-green-50">
+        <div class="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
+            <div class="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
+                <div class="mx-auto max-w-lg text-left lg:mx-0">
+                    <h2 class="text-3xl font-bold sm:text-4xl">Our Features</h2>
+
+                    <p class="mt-4 text-gray-600">
+                        Our platform offers a range of features designed to make your travel experience stress-free:
+                        customized tour packages, real-time support, detailed travel guides, and exclusive deals for an unforgettable journey.
+                    </p>
+
+                    <a href="#"
+                       class="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring">
+                        Book Now
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    <div class="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200">
+                        <h2 class="mt-2 font-bold">Custom Tours</h2>
+                        <p class="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                            Personalize your journey based on your interests and preferences.
+                        </p>
+                    </div>
+                    <div class="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200">
+                        <h2 class="mt-2 font-bold">Exclusive Deals</h2>
+                        <p class="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                            Save more with our seasonal offers and discounts.
+                        </p>
+                    </div>
+                    <div class="block rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200">
+                        <h2 class="mt-2 font-bold">24/7 Support</h2>
+                        <p class="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
+                            Assistance at every step of your journey, anytime, anywhere.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-100">
+        <div class="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-700">
+                Your trusted partner in exploring Pakistan's hidden treasures.
+            </p>
+            <p class="text-center text-gray-700">
+                © 2024 Tour My Pakistan.
+            </p>
+            <p class="text-center text-gray-700">
+                All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
 
 
 @code{
-    
+
 }
-
-

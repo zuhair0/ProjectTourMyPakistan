@@ -1,13 +1,19 @@
-﻿<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+﻿<nav class="navbar navbar-expand-lg bg-body-tertiary bg-gray-600" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="/">Tour My Pakistan</a>
+        <a class="navbar-brand active text-white" href="/" style="margin-left:3.5%">Tour My Pakistan</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active text-white" href="addcity"><b>City</b></a>
-                <a class="nav-link active text-white" href="addservicecategory"><b>Services</b></a>
+            <div class="navbar-nav ms-auto" style="margin-right:5%">
+                <a class="nav-link active text-white me-3" href="addservicecategory"><b>Home</b></a>
+                <a class="nav-link active text-white me-3" href="addservicecategory"><b>About</b></a>
+                <a class="nav-link active text-white me-3" href="addcity"><b>City</b></a>
+                <a class="nav-link active text-white me-3" href="addservicecategory"><b>Services</b></a>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn bg-green-700 hover:bg-green-500" style="color:white;" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </div>
